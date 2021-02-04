@@ -152,8 +152,8 @@ class PictureOnboarding extends Component {
                         this.state.selectedImage && this.state.selectedImage.uri
                           ? { uri: this.state.selectedImage.uri }
                           : this.state.picture
-                            ? { uri: this.state.picture }
-                            : PROFILE_IMG
+                          ? { uri: this.state.picture }
+                          : PROFILE_IMG
                       }
                     />
                     <View style={profileStyles.viewCameraCircleOnboarding}>
@@ -176,27 +176,27 @@ class PictureOnboarding extends Component {
                 {(this.state.selectedImage &&
                   Object.keys(this.state.selectedImage).length) ||
                 this.state.picture ? (
-                    <Button
-                      full
-                      style={{ backgroundColor: 'black', borderRadius: 0 }}
-                      onPress={() => {
-                        if (
-                          this.state.selectedImage &&
+                  <Button
+                    full
+                    style={{ backgroundColor: 'black', borderRadius: 0 }}
+                    onPress={() => {
+                      if (
+                        this.state.selectedImage &&
                         Object.keys(this.state.selectedImage).length
-                        )
-                          actions.editProfilePicture(this.state.selectedImage);
+                      )
+                        actions.editProfilePicture(this.state.selectedImage);
 
-                        this.props.navigation.navigate(RESUME_ONBOARDING_ROUTE);
-                      }}>
-                      <Text style={{ color: 'white', fontSize: 18 }}>Next</Text>
-                    </Button>
-                  ) : (
-                    <Button full light disabled style={{ borderRadius: 0 }}>
-                      <Text style={{ color: 'white', fontSize: 18 }}>
+                      this.props.navigation.navigate(RESUME_ONBOARDING_ROUTE);
+                    }}>
+                    <Text style={{ color: 'white', fontSize: 18 }}>Next</Text>
+                  </Button>
+                ) : (
+                  <Button full light disabled style={{ borderRadius: 0 }}>
+                    <Text style={{ color: 'white', fontSize: 18 }}>
                       To continue, upload picture
-                      </Text>
-                    </Button>
-                  )}
+                    </Text>
+                  </Button>
+                )}
               </FooterTab>
             </Footer>
           </Container>

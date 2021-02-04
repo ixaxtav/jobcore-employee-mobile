@@ -75,8 +75,8 @@ const Document = ({
                     (doc.status === 'REJECTED' ||
                       doc.status === 'DELETED' ||
                       doc.status === 'ARCHIVED')
-                    ? UploadDocumentStyle.documentStatusTextRejected
-                    : UploadDocumentStyle.documentStatusTextUnderReview //status === 'PENDING'
+                  ? UploadDocumentStyle.documentStatusTextRejected
+                  : UploadDocumentStyle.documentStatusTextUnderReview //status === 'PENDING'
               }>
               <Text style={UploadDocumentStyle.documentsStatusText}>
                 {t(`USER_DOCUMENTS.${doc.status.toLowerCase()}`).toLowerCase()}

@@ -1,10 +1,5 @@
 import { StyleSheet } from 'react-native';
-import {
-  WHITE_MAIN,
-  GRAY_MAIN,
-  RED_MAIN,
-  BLACK_MAIN,
-} from './colorPalette';
+import { WHITE_MAIN, GRAY_MAIN, RED_MAIN, BLACK_MAIN } from './colorPalette';
 
 export default StyleSheet.create({
   title: {

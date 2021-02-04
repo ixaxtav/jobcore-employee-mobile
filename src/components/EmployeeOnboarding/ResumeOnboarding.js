@@ -143,27 +143,27 @@ class ResumeOnboarding extends Component {
                     {(this.state.selectedResume &&
                       Object.keys(this.state.selectedResume).length) ||
                     this.state.picture ? (
-                        <Text
-                          style={{
-                            fontSize: 18,
-                            fontWeight: 'bold',
-                            textAlign: 'center',
-                            marginTop: 15,
-                            color: '#4BB543',
-                          }}>
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          fontWeight: 'bold',
+                          textAlign: 'center',
+                          marginTop: 15,
+                          color: '#4BB543',
+                        }}>
                         Resume has been uploaded !
-                        </Text>
-                      ) : (
-                        <Text
-                          style={{
-                            fontSize: 18,
-                            fontWeight: 'bold',
-                            textAlign: 'center',
-                            marginTop: 15,
-                          }}>
+                      </Text>
+                    ) : (
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          fontWeight: 'bold',
+                          textAlign: 'center',
+                          marginTop: 15,
+                        }}>
                         Upload or skip this step
-                        </Text>
-                      )}
+                      </Text>
+                    )}
                   </View>
                 </TouchableOpacity>
               </View>
@@ -178,30 +178,30 @@ class ResumeOnboarding extends Component {
                 {(this.state.selectedResume &&
                   Object.keys(this.state.selectedResume).length) ||
                 this.state.picture ? (
-                    <Button
-                      full
-                      style={{ backgroundColor: 'black', borderRadius: 0 }}
-                      onPress={() => {
-                        if (
-                          this.state.selectedResume &&
+                  <Button
+                    full
+                    style={{ backgroundColor: 'black', borderRadius: 0 }}
+                    onPress={() => {
+                      if (
+                        this.state.selectedResume &&
                         Object.keys(this.state.selectedResume).length
-                        )
-                          actions.editProfileResume(this.state.selectedResume);
+                      )
+                        actions.editProfileResume(this.state.selectedResume);
 
-                        this.props.navigation.navigate(DOB_ONBOARDING_ROUTE);
-                      }}>
-                      <Text style={{ color: 'white', fontSize: 18 }}>Next</Text>
-                    </Button>
-                  ) : (
-                    <Button
-                      full
-                      style={{ backgroundColor: 'black', borderRadius: 0 }}
-                      onPress={() =>
-                        this.props.navigation.navigate(DOB_ONBOARDING_ROUTE)
-                      }>
-                      <Text style={{ color: 'white', fontSize: 18 }}>Next</Text>
-                    </Button>
-                  )}
+                      this.props.navigation.navigate(DOB_ONBOARDING_ROUTE);
+                    }}>
+                    <Text style={{ color: 'white', fontSize: 18 }}>Next</Text>
+                  </Button>
+                ) : (
+                  <Button
+                    full
+                    style={{ backgroundColor: 'black', borderRadius: 0 }}
+                    onPress={() =>
+                      this.props.navigation.navigate(DOB_ONBOARDING_ROUTE)
+                    }>
+                    <Text style={{ color: 'white', fontSize: 18 }}>Next</Text>
+                  </Button>
+                )}
               </FooterTab>
             </Footer>
           </Container>

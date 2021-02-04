@@ -308,7 +308,7 @@ class RegisterScreen extends Component {
                           <Text>
                             <Text style={styles.termsAndConditionsTitle}>
                               {
-                                'By proceeding, I agree to JobCore\'s Terms of Use '
+                                "By proceeding, I agree to JobCore's Terms of Use "
                               }
                             </Text>
                             <Text style={styles.termsAndConditionsTermTitle}>

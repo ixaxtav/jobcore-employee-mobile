@@ -700,30 +700,30 @@ class DashboardScreen extends Component {
             {this.state.employee &&
               this.state.employee.i9form &&
               this.state.employee.i9form.status == 'PENDING' && (
-              <View
-                style={{
-                  backgroundColor: '#f0ad4e',
-                  padding: 10,
-                  borderTopWidth: 0.5,
-                  borderColor: 'black',
-                }}>
-                <React.Fragment>
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontSize: 13,
-                      fontWeight: '700',
-                    }}>
-                    <Icon
-                      style={{ color: 'black', fontSize: 14 }}
-                      type="FontAwesome"
-                      name={'exclamation-circle'}
-                    />
-                    {' Employment Verification Required'}
-                  </Text>
-                </React.Fragment>
-              </View>
-            )}
+                <View
+                  style={{
+                    backgroundColor: '#f0ad4e',
+                    padding: 10,
+                    borderTopWidth: 0.5,
+                    borderColor: 'black',
+                  }}>
+                  <React.Fragment>
+                    <Text
+                      style={{
+                        color: 'black',
+                        fontSize: 13,
+                        fontWeight: '700',
+                      }}>
+                      <Icon
+                        style={{ color: 'black', fontSize: 14 }}
+                        type="FontAwesome"
+                        name={'exclamation-circle'}
+                      />
+                      {' Employment Verification Required'}
+                    </Text>
+                  </React.Fragment>
+                </View>
+              )}
 
             {this.state.employee && !this.state.employee.i9form && (
               <View

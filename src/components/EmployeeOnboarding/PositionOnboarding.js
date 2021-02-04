@@ -276,19 +276,19 @@ class PositionOnboarding extends Component {
               <FooterTab>
                 {Array.isArray(this.state.positions) &&
                 this.state.positions.length > 0 ? (
-                    <Button
-                      full
-                      style={{ backgroundColor: 'black', borderRadius: 0 }}
-                      onPress={this.editPosition}>
-                      <Text style={{ color: 'white', fontSize: 18 }}>Next</Text>
-                    </Button>
-                  ) : (
-                    <Button light full disabled style={{ borderRadius: 0 }}>
-                      <Text style={{ color: 'white', fontSize: 18 }}>
+                  <Button
+                    full
+                    style={{ backgroundColor: 'black', borderRadius: 0 }}
+                    onPress={this.editPosition}>
+                    <Text style={{ color: 'white', fontSize: 18 }}>Next</Text>
+                  </Button>
+                ) : (
+                  <Button light full disabled style={{ borderRadius: 0 }}>
+                    <Text style={{ color: 'white', fontSize: 18 }}>
                       To continue, add position(s)
-                      </Text>
-                    </Button>
-                  )}
+                    </Text>
+                  </Button>
+                )}
               </FooterTab>
             </Footer>
           </Container>

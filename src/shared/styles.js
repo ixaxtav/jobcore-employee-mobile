@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native';
 import { WHITE_MAIN } from './colorPalette';
 import { hasNotch } from './utils';
 
-
 const headerStyles = StyleSheet.create({
   headerCustom: {
     alignContent: 'center',

@@ -242,7 +242,7 @@ class EditProfile extends Component {
       if (supported) {
         Linking.openURL(resume);
       } else {
-        console.log('Don\'t know how to open URI: ' + this.props.url);
+        console.log("Don't know how to open URI: " + this.props.url);
       }
     });
   };
@@ -285,8 +285,8 @@ class EditProfile extends Component {
                         this.state.selectedImage && this.state.selectedImage.uri
                           ? { uri: this.state.selectedImage.uri }
                           : this.state.picture
-                            ? { uri: this.state.picture }
-                            : PROFILE_IMG
+                          ? { uri: this.state.picture }
+                          : PROFILE_IMG
                       }
                     />
                     <View style={profileStyles.viewCameraCircle}>
@@ -372,33 +372,33 @@ class EditProfile extends Component {
                       }}>
                       {this.state.selectedResume &&
                       this.state.selectedResume.uri ? (
-                          <Button
-                            full
-                            onPress={this.openResumePicker}
-                            style={editProfileStyles.viewButtonResume}>
-                            <Text style={editProfileStyles.textButtom}>
-                              {'Edit Resume'}
-                            </Text>
-                          </Button>
-                        ) : this.state.resume ? (
-                          <Button
-                            full
-                            onPress={this.openResumePicker}
-                            style={editProfileStyles.viewButtonResume}>
-                            <Text style={editProfileStyles.textButtom}>
-                              {'Edit Resume'}
-                            </Text>
-                          </Button>
-                        ) : (
-                          <Button
-                            full
-                            onPress={this.openResumePicker}
-                            style={editProfileStyles.viewButtonResume}>
-                            <Text style={editProfileStyles.textButtom}>
-                              {t('EDIT_PROFILE.uploadResume')}
-                            </Text>
-                          </Button>
-                        )}
+                        <Button
+                          full
+                          onPress={this.openResumePicker}
+                          style={editProfileStyles.viewButtonResume}>
+                          <Text style={editProfileStyles.textButtom}>
+                            {'Edit Resume'}
+                          </Text>
+                        </Button>
+                      ) : this.state.resume ? (
+                        <Button
+                          full
+                          onPress={this.openResumePicker}
+                          style={editProfileStyles.viewButtonResume}>
+                          <Text style={editProfileStyles.textButtom}>
+                            {'Edit Resume'}
+                          </Text>
+                        </Button>
+                      ) : (
+                        <Button
+                          full
+                          onPress={this.openResumePicker}
+                          style={editProfileStyles.viewButtonResume}>
+                          <Text style={editProfileStyles.textButtom}>
+                            {t('EDIT_PROFILE.uploadResume')}
+                          </Text>
+                        </Button>
+                      )}
                     </Item>
                     {/* <Item
                       style={editProfileStyles.viewInput}

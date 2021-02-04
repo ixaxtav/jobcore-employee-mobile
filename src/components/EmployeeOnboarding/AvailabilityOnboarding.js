@@ -198,132 +198,132 @@ class AvailabilityOnboarding extends Component {
                   </ListItem>
                   {Array.isArray(this.state.availability)
                     ? this.state.availability.map((block) => (
-                      <ListItem key={block.id} style={styles.itemSelectCheck}>
-                        <View style={styles.viewContainerItems}>
-                          <View style={styles.viewTextDay}>
-                            <Text style={styles.textDay}>
-                              {moment(block.starting_at)
-                                .tz(moment.tz.guess())
-                                .format('ddd')}
-                            </Text>
-                          </View>
-                          <View style={styles.viewRadio}>
-                            <View style={styles.radioItems}>
-                              <View style={styles.radio}>
-                                <TouchableOpacity
-                                  style={styles.radioButtonLeft}
-                                  onPress={() => this.setAllday(true, block)}
-                                  rounded
-                                  transparent>
-                                  <Icon
-                                    name={
-                                      block.allday && block.available
-                                        ? 'md-radio-button-on'
-                                        : 'md-radio-button-off'
-                                    }
-                                    style={{
-                                      color:
+                        <ListItem key={block.id} style={styles.itemSelectCheck}>
+                          <View style={styles.viewContainerItems}>
+                            <View style={styles.viewTextDay}>
+                              <Text style={styles.textDay}>
+                                {moment(block.starting_at)
+                                  .tz(moment.tz.guess())
+                                  .format('ddd')}
+                              </Text>
+                            </View>
+                            <View style={styles.viewRadio}>
+                              <View style={styles.radioItems}>
+                                <View style={styles.radio}>
+                                  <TouchableOpacity
+                                    style={styles.radioButtonLeft}
+                                    onPress={() => this.setAllday(true, block)}
+                                    rounded
+                                    transparent>
+                                    <Icon
+                                      name={
+                                        block.allday && block.available
+                                          ? 'md-radio-button-on'
+                                          : 'md-radio-button-off'
+                                      }
+                                      style={{
+                                        color:
                                           block.allday && block.available
                                             ? 'black'
                                             : '#808080',
-                                      fontSize: 24,
-                                    }}
-                                  />
-                                </TouchableOpacity>
-                              </View>
-                              <View style={styles.radio}>
-                                <TouchableOpacity
-                                  style={styles.radioButtonLeft}
-                                  onPress={() =>
-                                    this.deleteAvailability(block)
-                                  }
-                                  rounded
-                                  transparent>
-                                  <Icon
-                                    name={
-                                      !block.available
-                                        ? 'md-radio-button-on'
-                                        : 'md-radio-button-off'
+                                        fontSize: 24,
+                                      }}
+                                    />
+                                  </TouchableOpacity>
+                                </View>
+                                <View style={styles.radio}>
+                                  <TouchableOpacity
+                                    style={styles.radioButtonLeft}
+                                    onPress={() =>
+                                      this.deleteAvailability(block)
                                     }
-                                    style={{
-                                      color: !block.available
-                                        ? 'black'
-                                        : '#808080',
-                                      fontSize: 24,
-                                    }}
-                                  />
-                                </TouchableOpacity>
-                              </View>
-                              <View style={styles.radio}>
-                                <TouchableOpacity
-                                  style={styles.radioButtonRight}
-                                  onPress={() => this.setAllday(false, block)}
-                                  rounded
-                                  transparent>
-                                  <Icon
-                                    name={
-                                      !block.allday && block.available
-                                        ? 'md-radio-button-on'
-                                        : 'md-radio-button-off'
-                                    }
-                                    style={{
-                                      color:
+                                    rounded
+                                    transparent>
+                                    <Icon
+                                      name={
+                                        !block.available
+                                          ? 'md-radio-button-on'
+                                          : 'md-radio-button-off'
+                                      }
+                                      style={{
+                                        color: !block.available
+                                          ? 'black'
+                                          : '#808080',
+                                        fontSize: 24,
+                                      }}
+                                    />
+                                  </TouchableOpacity>
+                                </View>
+                                <View style={styles.radio}>
+                                  <TouchableOpacity
+                                    style={styles.radioButtonRight}
+                                    onPress={() => this.setAllday(false, block)}
+                                    rounded
+                                    transparent>
+                                    <Icon
+                                      name={
+                                        !block.allday && block.available
+                                          ? 'md-radio-button-on'
+                                          : 'md-radio-button-off'
+                                      }
+                                      style={{
+                                        color:
                                           !block.allday && block.available
                                             ? 'black'
                                             : '#808080',
-                                      fontSize: 24,
-                                    }}
-                                  />
-                                </TouchableOpacity>
-                              </View>
-                            </View>
-                          </View>
-                          {block.allday === false && block.available ? (
-                            <View style={styles.viewPicker}>
-                              <View
-                                style={{
-                                  flexDirection: 'row',
-                                  marginLeft: 50,
-                                }}>
-                                <Button
-                                  onPress={() =>
-                                    this.showStartTimePicker(block)
-                                  }
-                                  style={styles.buttonHour}
-                                  rounded
-                                  bordered
-                                  small>
-                                  <Text style={styles.textHour}>
-                                    {moment(block.starting_at)
-                                      .tz(moment.tz.guess())
-                                      .format('h:mma')}
-                                  </Text>
-                                </Button>
-                                <View style={styles.textToView}>
-                                  <Text style={styles.textTo}>
-                                    {t('APP.to')}
-                                  </Text>
+                                        fontSize: 24,
+                                      }}
+                                    />
+                                  </TouchableOpacity>
                                 </View>
-                                <Button
-                                  onPress={() =>
-                                    this.showEndTimePicker(block)
-                                  }
-                                  style={styles.buttonHour}
-                                  rounded
-                                  bordered
-                                  small>
-                                  <Text style={styles.textHour}>
-                                    {moment(block.ending_at)
-                                      .tz(moment.tz.guess())
-                                      .format('h:mma')}
-                                  </Text>
-                                </Button>
                               </View>
                             </View>
-                          ) : null}
-                        </View>
-                      </ListItem>
-                    ))
+                            {block.allday === false && block.available ? (
+                              <View style={styles.viewPicker}>
+                                <View
+                                  style={{
+                                    flexDirection: 'row',
+                                    marginLeft: 50,
+                                  }}>
+                                  <Button
+                                    onPress={() =>
+                                      this.showStartTimePicker(block)
+                                    }
+                                    style={styles.buttonHour}
+                                    rounded
+                                    bordered
+                                    small>
+                                    <Text style={styles.textHour}>
+                                      {moment(block.starting_at)
+                                        .tz(moment.tz.guess())
+                                        .format('h:mma')}
+                                    </Text>
+                                  </Button>
+                                  <View style={styles.textToView}>
+                                    <Text style={styles.textTo}>
+                                      {t('APP.to')}
+                                    </Text>
+                                  </View>
+                                  <Button
+                                    onPress={() =>
+                                      this.showEndTimePicker(block)
+                                    }
+                                    style={styles.buttonHour}
+                                    rounded
+                                    bordered
+                                    small>
+                                    <Text style={styles.textHour}>
+                                      {moment(block.ending_at)
+                                        .tz(moment.tz.guess())
+                                        .format('h:mma')}
+                                    </Text>
+                                  </Button>
+                                </View>
+                              </View>
+                            ) : null}
+                          </View>
+                        </ListItem>
+                      ))
                     : null}
                 </List>
               </View>

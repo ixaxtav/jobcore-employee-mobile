@@ -99,8 +99,8 @@ const Document = ({
                     (doc.status === 'REJECTED' ||
                       doc.status === 'DELETED' ||
                       doc.status === 'ARCHIVED')
-                    ? UploadDocumentStyle.documentStatusTextRejected
-                    : UploadDocumentStyle.documentStatusTextUnderReview //status === 'PENDING'
+                  ? UploadDocumentStyle.documentStatusTextRejected
+                  : UploadDocumentStyle.documentStatusTextUnderReview //status === 'PENDING'
               }>
               <Text style={UploadDocumentStyle.documentsStatusText}>
                 {t(`USER_DOCUMENTS.${doc.status.toLowerCase()}`).toLowerCase()}
@@ -1115,13 +1115,13 @@ class UploadDocumentScreen extends Component {
                     </View>
                     {documentA.length > 0
                       ? documentA.map((doc, i) => (
-                        <Document
-                          doc={doc}
-                          t={t}
-                          key={i}
-                          // deleteDocumentAlert={this.deleteDocumentAlert}
-                        />
-                      ))
+                          <Document
+                            doc={doc}
+                            t={t}
+                            key={i}
+                            // deleteDocumentAlert={this.deleteDocumentAlert}
+                          />
+                        ))
                       : null}
                     {/* Step 2 */}
 
@@ -1137,13 +1137,13 @@ class UploadDocumentScreen extends Component {
                     </View>
                     {employmentDocuments.length > 0
                       ? employmentDocuments.map((doc, i) => (
-                        <Document
-                          doc={doc}
-                          t={t}
-                          key={i}
-                          // deleteDocumentAlert={this.deleteDocumentAlert}
-                        />
-                      ))
+                          <Document
+                            doc={doc}
+                            t={t}
+                            key={i}
+                            // deleteDocumentAlert={this.deleteDocumentAlert}
+                          />
+                        ))
                       : null}
                   </View>
                 </View>

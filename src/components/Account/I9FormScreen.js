@@ -86,8 +86,8 @@ const Document = ({
                     (doc.status === 'REJECTED' ||
                       doc.status === 'DELETED' ||
                       doc.status === 'ARCHIVED')
-                    ? UploadDocumentStyle.documentStatusTextRejected
-                    : UploadDocumentStyle.documentStatusTextUnderReview //status === 'PENDING'
+                  ? UploadDocumentStyle.documentStatusTextRejected
+                  : UploadDocumentStyle.documentStatusTextUnderReview //status === 'PENDING'
               }>
               <Text style={UploadDocumentStyle.documentsStatusText}>
                 {t(`USER_DOCUMENTS.${doc.status.toLowerCase()}`).toLowerCase()}
@@ -552,7 +552,7 @@ class UploadDocumentScreen extends Component {
                 <View style={{ flexDirection: 'row', paddingLeft: 15 }}>
                   <Text>{'\u2022'}</Text>
                   <Text style={{ flex: 1, paddingLeft: 5 }}>
-                    {'U.S State Driver\'s License / ID Card'}
+                    {"U.S State Driver's License / ID Card"}
                   </Text>
                 </View>
                 <View style={{ flexDirection: 'row', paddingLeft: 15 }}>
@@ -578,7 +578,7 @@ class UploadDocumentScreen extends Component {
                 <View style={{ flexDirection: 'row', paddingLeft: 15 }}>
                   <Text>{'\u2022'}</Text>
                   <Text style={{ flex: 1, paddingLeft: 5 }}>
-                    {'Military Dependent\'s ID Card'}
+                    {"Military Dependent's ID Card"}
                   </Text>
                 </View>
               </View>
