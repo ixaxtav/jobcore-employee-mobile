@@ -5,8 +5,9 @@ import { i18next } from '../i18n';
 import { API_URL } from 'react-native-dotenv';
 
 export const getAPIUrl = () => {
-  console.log('API_URL: ', API_URL);
-  return 'https://jobcore.herokuapp.com/api';
+  console.log('API_URL JOBCORE: ', API_URL);
+  // return 'https://jobcore.herokuapp.com/api';
+  return API_URL;
 };
 
 /**
@@ -32,6 +33,7 @@ export async function postData(url, data, isAuth = true) {
   };
 
   const fullUrl = `${getAPIUrl()}${url}`;
+  console.log('full url', fullUrl);
   return timeout(20000, fetch(fullUrl, options))
     .then(checkStatus)
     .then((res) => {

@@ -1,10 +1,5 @@
 import { StyleSheet, Platform } from 'react-native';
-import {
-  BLUE_MAIN,
-  BLUE_DARK,
-  WHITE_MAIN,
-  BLUE_LIGHT,
-} from '../../shared/colorPalette';
+import { WHITE_MAIN, BLUE_LIGHT } from '../../shared/colorPalette';
 
 export default StyleSheet.create({
   container: {
@@ -14,53 +9,53 @@ export default StyleSheet.create({
   },
   sliderLabel: {
     textAlign: 'center',
-    color: BLUE_DARK,
+    color: 'black',
     marginTop: 20,
   },
   sliderValue: {
     marginLeft: 0,
     marginRight: 0,
     textAlign: 'left',
-    color: BLUE_DARK,
+    color: 'black',
   },
   sliderMaxValue: {
     fontSize: 12,
     textAlign: 'left',
-    color: BLUE_DARK,
+    color: 'black',
   },
   radioButtonLeft: {
     fontSize: 14,
-    color: BLUE_DARK,
+    color: 'black',
     marginLeft: 10,
     marginRight: 5,
   },
   radioButtonRight: {
-    color: BLUE_DARK,
+    color: 'black',
     marginLeft: 5,
     marginRight: 10,
   },
   textAlldayOr: {
-    color: BLUE_DARK,
+    color: 'black',
     textAlign: 'center',
     fontSize: 12,
     marginLeft: -25,
   },
   textDay: {
     textAlign: 'left',
-    color: BLUE_DARK,
+    color: 'black',
   },
   textHour: {
-    color: BLUE_DARK,
+    color: 'black',
   },
   buttonHour: {
-    borderColor: BLUE_DARK,
+    borderColor: 'black',
   },
   textToView: {
     marginLeft: 5,
     marginRight: 5,
   },
   textTo: {
-    color: BLUE_DARK,
+    color: 'black',
     marginTop: 5,
   },
   buttonPosition: {
@@ -68,7 +63,7 @@ export default StyleSheet.create({
     backgroundColor: BLUE_LIGHT,
   },
   headerCustom: {
-    backgroundColor: BLUE_MAIN,
+    backgroundColor: '#808080',
   },
   titleHeader: {
     color: WHITE_MAIN,
@@ -77,7 +72,7 @@ export default StyleSheet.create({
   },
   viewHeader: {
     backgroundColor: BLUE_LIGHT,
-    borderRadius: 50,
+    borderRadius: 0,
     padding: 15,
     paddingLeft: 20,
     paddingRight: 20,
@@ -88,7 +83,7 @@ export default StyleSheet.create({
     paddingRight: 0,
   },
   textHeader: {
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 14,
     textAlign: 'center',
   },
@@ -97,13 +92,13 @@ export default StyleSheet.create({
   },
   IconCheck: {
     fontSize: 20,
-    color: BLUE_DARK,
+    color: 'black',
   },
   textList: {
-    color: BLUE_DARK,
+    color: 'black',
   },
   weekendsText: {
-    color: BLUE_DARK,
+    color: 'black',
   },
   accordionAvailability: {
     borderColor: 'transparent',
@@ -113,7 +108,7 @@ export default StyleSheet.create({
   },
   textAvailability: {
     textAlign: 'center',
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 16,
   },
   accordionPosition: {
@@ -126,9 +121,9 @@ export default StyleSheet.create({
     backgroundColor: 'transparent',
     height: 55,
     width: '100%',
-    borderColor: BLUE_MAIN,
-    color: BLUE_DARK,
-    borderRadius: 50,
+    borderColor: '#808080',
+    color: 'black',
+    borderRadius: 0,
     borderWidth: 1,
     paddingLeft: 20,
     paddingTop: 12,
@@ -151,29 +146,29 @@ export default StyleSheet.create({
     marginTop: 50,
   },
   titleInvite: {
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 14,
     marginBottom: 10,
   },
   itemInvite: {
     padding: 14,
     fontSize: 14,
-    color: BLUE_DARK,
+    color: 'black',
   },
   buttomLeftActive: {
-    backgroundColor: BLUE_MAIN,
+    backgroundColor: '#808080',
     borderColor: 'transparent',
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
   },
   buttomLeftDesactive: {
     backgroundColor: 'transparent',
-    borderColor: BLUE_MAIN,
+    borderColor: '#808080',
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
   },
   labelForm: {
-    color: BLUE_DARK,
+    color: 'black',
   },
 
   viewContainerItems: {

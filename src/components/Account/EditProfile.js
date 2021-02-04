@@ -6,6 +6,7 @@ import {
   Image,
   Switch,
   Platform,
+  Linking,
 } from 'react-native';
 import {
   Item,
@@ -25,6 +26,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-community/async-storage';
 import editProfileStyles from './EditProfileStyle';
 import profileStyles from './PublicProfileStyle';
+import UploadDocumentScreen from './UploadDocumentScreen';
 import * as actions from './actions';
 import accountStore from './AccountStore';
 import { I18n } from 'react-i18next';
@@ -71,22 +73,25 @@ class EditProfile extends Component {
     super(props);
     this.state = {
       isLoading: true,
+      docType: 22,
       showDatePicker: false,
       firstName: '',
       lastName: '',
       email: '',
       picture: '',
+      resume: '',
       bio: '',
       profile_city: '',
       cities: [],
-      city: '',
+      city: 'others',
       profile_city_id: '',
       last_4dig_ssn: '',
-      userBirthDate: '',
+      userBirthDate: null,
       _userBirthDate: null,
       loginAutoSave: false,
       biometrySupport: true,
       selectedImage: {},
+      selectedResume: {},
     };
 
     this.setPermissionTouchId();
@@ -118,12 +123,15 @@ class EditProfile extends Component {
       this.editProfileHandler,
     );
     this.getUserSubscription = accountStore.subscribe('getUser', (user) => {
-      console.log('user: ', user);
       this.setUserInfo(user);
     });
     this.editProfilePictureSubscription = accountStore.subscribe(
       'EditProfilePicture',
       this.editProfilePictureHandler,
+    );
+    this.editProfileResumeSubscription = accountStore.subscribe(
+      'EditProfileResume',
+      this.editProfileResumeHandler,
     );
     this.accountStoreError = accountStore.subscribe(
       'AccountStoreError',
@@ -147,12 +155,18 @@ class EditProfile extends Component {
       });
     }
   };
-
+  openResumePicker = () => {
+    ImagePicker.showImagePicker(
+      IMAGE_PICKER_OPTIONS,
+      this.handleResumePickerResponse,
+    );
+  };
   componentWillUnmount() {
     this.getUserSubscription.unsubscribe();
     this.getCitiesSubscription.unsubscribe();
     this.editProfileSubscription.unsubscribe();
     this.editProfilePictureSubscription.unsubscribe();
+    this.editProfileResumeSubscription.unsubscribe();
     this.accountStoreError.unsubscribe();
   }
 
@@ -178,18 +192,60 @@ class EditProfile extends Component {
     }
   };
 
+  saveDocumentAlert = (docName, res) => {
+    Alert.alert(
+      'Are you sure to upload resume:',
+      ` ${docName}?`,
+      [
+        {
+          text: i18next.t('APP.cancel'),
+          onPress: () => {
+            LOG(this, 'Cancel add document');
+          },
+        },
+        {
+          text: 'Upload',
+          onPress: () => actions.uploadDocument(res),
+        },
+      ],
+      { cancelable: false },
+    );
+  };
+
   editProfilePictureHandler = (data) => {
     this.setUser(data);
     this.editProfile();
+  };
+  editProfileResumeHandler = (data) => {
+    // this.setUser(data);
+    // this.editProfile();
+    console.log('resume', data);
   };
 
   editProfileHandler = (data) => {
     this.isLoading(false);
     CustomToast(i18next.t('EDIT_PROFILE.profileUpdated'));
     this.setUser(data);
-    this.props.navigation.goBack();
+    if (
+      this.props.navigation.state.params &&
+      this.props.navigation.state.params.onboarding
+    ) {
+      this.props.navigation.navigate(UploadDocumentScreen.routeName);
+      CustomToast('Profile Saved. Please upload your documents to continue.');
+    } else {
+      this.props.navigation.goBack();
+    }
   };
 
+  handleClickResume = (resume) => {
+    Linking.canOpenURL(resume).then((supported) => {
+      if (supported) {
+        Linking.openURL(resume);
+      } else {
+        console.log('Don\'t know how to open URI: ' + this.props.url);
+      }
+    });
+  };
   errorHandler = (err) => {
     this.isLoading(false);
     CustomToast(err, 'danger');
@@ -208,6 +264,7 @@ class EditProfile extends Component {
       isLoading,
     } = this.state;
 
+    console.log('edit profile', this.state);
     return (
       <I18n>
         {(t) => (
@@ -303,7 +360,47 @@ class EditProfile extends Component {
                         onChangeText={(text) => this.setState({ bio: text })}
                       />
                     </Item>
+
                     <Item
+                      onPress={this.focusTextarea}
+                      style={{
+                        alignContent: 'center',
+                        justifyContent: 'center',
+                        textAlign: 'center',
+                        marginLeft: 0,
+                        marginTop: 10,
+                      }}>
+                      {this.state.selectedResume &&
+                      this.state.selectedResume.uri ? (
+                          <Button
+                            full
+                            onPress={this.openResumePicker}
+                            style={editProfileStyles.viewButtonResume}>
+                            <Text style={editProfileStyles.textButtom}>
+                              {'Edit Resume'}
+                            </Text>
+                          </Button>
+                        ) : this.state.resume ? (
+                          <Button
+                            full
+                            onPress={this.openResumePicker}
+                            style={editProfileStyles.viewButtonResume}>
+                            <Text style={editProfileStyles.textButtom}>
+                              {'Edit Resume'}
+                            </Text>
+                          </Button>
+                        ) : (
+                          <Button
+                            full
+                            onPress={this.openResumePicker}
+                            style={editProfileStyles.viewButtonResume}>
+                            <Text style={editProfileStyles.textButtom}>
+                              {t('EDIT_PROFILE.uploadResume')}
+                            </Text>
+                          </Button>
+                        )}
+                    </Item>
+                    {/* <Item
                       style={editProfileStyles.viewInput}
                       inlineLabel
                       rounded>
@@ -350,8 +447,8 @@ class EditProfile extends Component {
                           // style={editProfileStyles.pickerItem}
                         />
                       </Picker>
-                    </Item>
-                    {city === 'others' ? (
+                    </Item> */}
+                    {city == 'others' ? (
                       <Item
                         style={editProfileStyles.viewInput}
                         inlineLabel
@@ -366,7 +463,7 @@ class EditProfile extends Component {
                         />
                       </Item>
                     ) : null}
-                    <Item
+                    {/* <Item
                       style={editProfileStyles.viewInput}
                       inlineLabel
                       rounded>
@@ -382,7 +479,7 @@ class EditProfile extends Component {
                             });
                         }}
                       />
-                    </Item>
+                    </Item> */}
                     <Item
                       style={editProfileStyles.viewInput}
                       inlineLabel
@@ -472,6 +569,7 @@ class EditProfile extends Component {
       lastName: user.user.last_name,
       email: user.user.email,
       picture: user.picture,
+      resume: user.resume,
       bio: user.bio,
       profile_city_id: user.profile_city,
       wroteCity: user.city,
@@ -491,6 +589,7 @@ class EditProfile extends Component {
   };
 
   setUser = (data) => {
+    console.log('setuser', data);
     const session = accountStore.getState('Login');
 
     try {
@@ -506,31 +605,75 @@ class EditProfile extends Component {
   };
 
   editProfileAlert = () => {
-    Alert.alert(
-      i18next.t('EDIT_PROFILE.wantToEditProfile'),
-      '',
-      [
-        {
-          text: i18next.t('APP.cancel'),
-          onPress: () => {
-            LOG(this, 'Cancel edit profile');
+    if (
+      (this.state.selectedImage && this.state.selectedImage.uri) ||
+      !this.state.picture.includes('default')
+    ) {
+      Alert.alert(
+        i18next.t('EDIT_PROFILE.wantToEditProfile'),
+        '',
+        [
+          {
+            text: i18next.t('APP.cancel'),
+            onPress: () => {
+              LOG(this, 'Cancel edit profile');
+            },
           },
-        },
-        {
-          text: i18next.t('EDIT_PROFILE.update'),
-          onPress: () => {
-            this.setState({ isLoading: true }, () => {
-              LOG(this, this.state);
-              if (this.state.selectedImage && this.state.selectedImage.uri) {
-                return actions.editProfilePicture(this.state.selectedImage);
-              }
-              this.editProfile();
-            });
+          {
+            text: i18next.t('EDIT_PROFILE.update'),
+            onPress: () => {
+              this.setState({ isLoading: true }, () => {
+                LOG(this, this.state);
+                if (this.state.selectedImage && this.state.selectedImage.uri) {
+                  return actions.editProfilePicture(this.state.selectedImage);
+                }
+                this.editProfile();
+              });
+            },
           },
-        },
-      ],
-      { cancelable: false },
-    );
+        ],
+        { cancelable: false },
+      );
+    } else {
+      CustomToast('Please upload a profile picture', 'danger');
+    }
+  };
+  editResumeAlert = () => {
+    if (
+      (this.state.selectedImage && this.state.selectedImage.uri) ||
+      !this.state.picture.includes('default')
+    ) {
+      Alert.alert(
+        i18next.t('EDIT_PROFILE.wantToEditProfile'),
+        '',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => {
+              LOG(this, 'Cancel edit resume');
+            },
+          },
+          {
+            text: 'Upload',
+            onPress: () => {
+              this.setState({ isLoading: true }, () => {
+                LOG(this, this.state);
+                if (
+                  this.state.selectedResume &&
+                  this.state.selectedResume.uri
+                ) {
+                  return actions.editProfileResume(this.state.selectedImage);
+                }
+                this.editProfile();
+              });
+            },
+          },
+        ],
+        { cancelable: false },
+      );
+    } else {
+      CustomToast('Please upload a profile picture', 'danger');
+    }
   };
 
   editProfile = () => {
@@ -618,7 +761,47 @@ class EditProfile extends Component {
       this.setState({ selectedImage });
     }
   };
+  handleResumePickerResponse = (response) => {
+    if (response.didCancel) {
+      // for react-native-image-picker response
+      LOG(this, 'User cancelled image picker');
+    } else if (response.error) {
+      // for react-native-image-picker response
+      LOG(this, `ImagePicker Error: ${response.error}`);
+    } else if (response.customButton) {
+      // for react-native-image-picker response
+      LOG(this, `User tapped custom button: ${response.customButton}`);
+    } else {
+      if (!response.uri) return;
 
+      let type = response.type;
+
+      if (type === undefined && response.fileName === undefined) {
+        const pos = response.uri.lastIndexOf('.');
+        type = response.uri.substring(pos + 1);
+        if (type) type = `image/${type}`;
+      }
+      if (type === undefined) {
+        const splitted = response.fileName.split('.');
+        type = splitted[splitted.length - 1];
+        if (type) type = `image/${type}`;
+      }
+
+      let name = response.fileName;
+      if (name === undefined && response.fileName === undefined) {
+        const pos = response.uri.lastIndexOf('/');
+        name = response.uri.substring(pos + 1);
+      }
+
+      const selectedResume = {
+        uri: response.uri,
+        type: type.toLowerCase(),
+        name,
+      };
+      actions.editProfileResume(selectedResume);
+      this.setState({ selectedResume });
+    }
+  };
   goToJobPreferences = () => {
     this.props.navigation.navigate(JOB_PREFERENCES_ROUTE);
   };

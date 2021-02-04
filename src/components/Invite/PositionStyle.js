@@ -1,11 +1,5 @@
 import { StyleSheet, Platform } from 'react-native';
-import {
-  BLUE_MAIN,
-  VIOLET_MAIN,
-  BLUE_DARK,
-  WHITE_MAIN,
-  BLUE_LIGHT,
-} from '../../shared/colorPalette';
+import { WHITE_MAIN, BLUE_LIGHT } from '../../shared/colorPalette';
 
 export default StyleSheet.create({
   container: {
@@ -15,26 +9,26 @@ export default StyleSheet.create({
   },
   sliderLabel: {
     textAlign: 'center',
-    color: BLUE_DARK,
+    color: 'black',
     marginTop: 20,
   },
   sliderValue: {
     marginLeft: 0,
     marginRight: 0,
     textAlign: 'left',
-    color: BLUE_DARK,
+    color: 'black',
   },
   sliderMaxValue: {
     fontSize: 12,
     textAlign: 'left',
-    color: BLUE_DARK,
+    color: 'black',
   },
   buttonPosition: {
     textAlign: 'center',
     backgroundColor: BLUE_LIGHT,
   },
   headerCustom: {
-    backgroundColor: BLUE_MAIN,
+    backgroundColor: 'black',
   },
   titleHeader: {
     color: WHITE_MAIN,
@@ -43,7 +37,7 @@ export default StyleSheet.create({
   },
   viewHeader: {
     backgroundColor: BLUE_LIGHT,
-    borderRadius: 50,
+    borderRadius: 0,
     padding: 15,
     paddingLeft: 20,
     paddingRight: 20,
@@ -56,7 +50,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   textHeader: {
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 14,
     textAlign: 'center',
   },
@@ -70,7 +64,7 @@ export default StyleSheet.create({
     width: '99%',
     height: 350,
     borderWidth: 1,
-    borderColor: BLUE_MAIN,
+    borderColor: 'black',
     borderRadius: 35,
     paddingBottom: 50,
     paddingTop: 25,
@@ -89,13 +83,13 @@ export default StyleSheet.create({
   },
   IconCheck: {
     fontSize: 20,
-    color: BLUE_DARK,
+    color: 'black',
   },
   textList: {
-    color: BLUE_DARK,
+    color: 'black',
   },
   weekendsText: {
-    color: BLUE_DARK,
+    color: 'black',
   },
   accordionAvailability: {
     borderColor: 'transparent',
@@ -105,7 +99,7 @@ export default StyleSheet.create({
   },
   textAvailability: {
     textAlign: 'center',
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 16,
   },
   accordionPosition: {
@@ -118,9 +112,9 @@ export default StyleSheet.create({
     backgroundColor: 'transparent',
     height: 55,
     width: '100%',
-    borderColor: BLUE_MAIN,
-    color: BLUE_DARK,
-    borderRadius: 50,
+    borderColor: 'black',
+    color: 'black',
+    borderRadius: 0,
     borderWidth: 1,
     paddingLeft: 20,
     paddingTop: 12,
@@ -143,22 +137,22 @@ export default StyleSheet.create({
     marginTop: 50,
   },
   titleInvite: {
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 14,
     marginBottom: 10,
   },
   itemInvite: {
     padding: 14,
     fontSize: 14,
-    color: BLUE_DARK,
+    color: 'black',
   },
   labelForm: {
-    color: BLUE_DARK,
+    color: 'black',
   },
   textViolet: {
-    color: VIOLET_MAIN,
+    color: 'black',
   },
   textBlue: {
-    color: BLUE_MAIN,
+    color: 'black',
   },
 });

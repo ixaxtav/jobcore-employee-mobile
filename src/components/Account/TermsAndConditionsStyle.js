@@ -5,7 +5,7 @@ export default StyleSheet.create({
   viewButtomLogin: {
     margin: 20,
     marginBottom: 0,
-    borderRadius: 50,
+    borderRadius: 0,
     height: 55,
     backgroundColor: BLUE_DARK,
   },

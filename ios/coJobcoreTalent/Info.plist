@@ -69,6 +69,10 @@
 		<string>rubicon-icon-font.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>UberMoveText-Bold.otf</string>
+		<string>UberMoveText-Light.otf</string>
+		<string>UberMoveText-Medium.otf</string>
+		<string>UberMoveText-Regular.otf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

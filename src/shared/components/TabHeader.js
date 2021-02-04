@@ -1,4 +1,4 @@
-import { Body, Header, Left, Title, Right, Button } from 'native-base';
+import { Body, Header, Left, Title, Right, Button, Text } from 'native-base';
 import { Image } from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -13,7 +13,7 @@ const TabHeader = ({
   onPressBack,
   onPressHelp,
 }) => (
-  <Header androidStatusBarColor={BLUE_MAIN} style={headerStyles.headerCustom}>
+  <Header androidStatusBarColor={'black'} style={headerStyles.headerCustom}>
     <Left style={!goBack ? { flex: 0.9 } : ''}>
       {goBack ? (
         <Button style={{ marginLeft: 10 }} transparent onPress={onPressBack}>
@@ -33,7 +33,7 @@ const TabHeader = ({
       </Title>
     </Body>
     <Right>
-      <HelpIcon onPressHelp={onPressHelp} screenName={screenName} />
+      {/* {screenName && <HelpIcon onPressHelp={onPressHelp} screenName={screenName} /> } */}
     </Right>
   </Header>
 );

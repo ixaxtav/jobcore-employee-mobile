@@ -13,13 +13,14 @@ import {
   GREEN_LOW,
   YELLOW_PURE,
   YELLOW_LOW,
+  GRAY_LIGHT,
 } from '../../shared/colorPalette';
 var height = Dimensions.get('window').height;
 
 export default StyleSheet.create({
   container: {
     height: '80%',
-    paddingHorizontal: 35,
+    // paddingHorizontal: 35,
   },
   buttonContainer: {
     paddingHorizontal: 35,
@@ -30,7 +31,7 @@ export default StyleSheet.create({
     backgroundColor: BLUE_DARK,
     borderRadius: 5,
     height: 45,
-    // marginTop: 40,
+    marginTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -56,6 +57,17 @@ export default StyleSheet.create({
     fontWeight: '800',
     textAlign: 'center',
     color: WHITE_MAIN,
+  },
+  disclosureText: {
+    marginBottom: 15,
+    fontSize: 10,
+    textAlign: 'center',
+    color: GRAY_LIGHT,
+  },
+  backgroundcheckdisclosureText: {
+    marginBottom: 15,
+    fontSize: 12,
+    color: 'black',
   },
   userStatusLabel: {
     // height: 50,

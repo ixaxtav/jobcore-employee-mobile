@@ -95,12 +95,21 @@ const register = (
   password,
   firstName,
   lastName,
+  phoneNumber,
   city,
   wroteCity,
   acceptTerms,
 ) => {
   try {
-    registerValidator(email, password, firstName, lastName, city, acceptTerms);
+    registerValidator(
+      email,
+      password,
+      firstName,
+      lastName,
+      phoneNumber,
+      city,
+      acceptTerms,
+    );
   } catch (err) {
     return Flux.dispatchEvent('AccountStoreError', err);
   }
@@ -108,6 +117,7 @@ const register = (
     account_type: 'employee',
     first_name: firstName,
     last_name: lastName,
+    phone_number: phoneNumber,
     username: email,
     email: email,
     password: password,
@@ -173,7 +183,7 @@ const editProfile = (
     last_4dig_ssn: last_4dig_ssn,
     birth_date: birth_date,
   };
-  console.log('action profile_city: ', profile_city);
+
   try {
     editProfileValidator(firstName, lastName, bio);
   } catch (err) {
@@ -198,6 +208,27 @@ const editProfile = (
   putData(`/profiles/me`, data)
     .then((data) => {
       Flux.dispatchEvent('EditProfile', data);
+    })
+    .catch((err) => {
+      console.log('err: ', err);
+      Flux.dispatchEvent('AccountStoreError', err);
+    });
+};
+
+const editStatus = (status, loginStore) => {
+  let data = {
+    status: 'ACTIVE',
+  };
+  let newLoginStore;
+  if (loginStore) {
+    newLoginStore = loginStore;
+    newLoginStore['user']['profile']['status'] = 'ACTIVE';
+  }
+
+  console.log('newLoginStore', newLoginStore);
+  putData(`/profiles/me`, data)
+    .then((data) => {
+      Flux.dispatchEvent('Login', newLoginStore);
     })
     .catch((err) => {
       console.log('err: ', err);
@@ -297,6 +328,34 @@ const editProfilePicture = (image) => {
       Flux.dispatchEvent('AccountStoreError', err);
     });
 };
+
+/**
+ * Edit profile resume
+ *
+ */
+const editProfileResume = (image) => {
+  try {
+    editProfilePictureValidator(image);
+  } catch (err) {
+    return Flux.dispatchEvent('AccountStoreError', err);
+  }
+
+  const body = new FormData();
+
+  body.append('image', {
+    uri: image.uri,
+    name: image.name,
+    type: image.type,
+  });
+
+  putFormData(`/profiles/me/resume`, body)
+    .then((data) => {
+      Flux.dispatchEvent('EditProfileResume', data);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('AccountStoreError', err);
+    });
+};
 /**
  * Edit profile picture action
  * @param  {Boolean}  boolean
@@ -355,6 +414,32 @@ const getDocuments = () => {
     });
 };
 /**
+ * Get I9Form
+ */
+const getI9Form = () => {
+  getData(`/employees/me/i9-form`)
+    .then((form) => {
+      Flux.dispatchEvent('GetI9Form', form);
+    })
+    .catch((err) => {
+      console.log('GetI9Form error: ', err);
+      Flux.dispatchEvent('AccountStoreError', err);
+    });
+};
+/**
+ * Get W4Form
+ */
+const getW4Form = () => {
+  getData(`/employees/me/w4-form`)
+    .then((form) => {
+      Flux.dispatchEvent('GetW4Form', form);
+    })
+    .catch((err) => {
+      console.log('GetW4Form error: ', err);
+      Flux.dispatchEvent('AccountStoreError', err);
+    });
+};
+/**
  * Get documents types
  */
 const getDocumentsTypes = async () => {
@@ -362,12 +447,18 @@ const getDocumentsTypes = async () => {
     const identity = await getData(`/documents?type=identity`);
     const employment = await getData(`/documents?type=employment`);
     const form = await getData(`/documents?type=form`);
-    if (identity || employment || form) {
+    const document_a = await getData(`/documents?type=document_a`);
+    if (identity || employment || form || document_a) {
       console.log('getDocumentsTypes identity: ', identity);
       console.log('getDocumentsTypes employment: ', employment);
       console.log('getDocumentsTypes form: ', form);
       let types = [];
-      const allTypesArray = [...identity, ...employment, ...form];
+      const allTypesArray = [
+        ...identity,
+        ...employment,
+        ...form,
+        ...document_a,
+      ];
       allTypesArray.forEach((type) => {
         if (
           types.filter((filterType) => filterType.title === type.title)
@@ -395,12 +486,31 @@ const setStoredUser = (user) => {
   });
 };
 
-export const requestSendValidationLink = (email) => {
-  postData(`/user/email/validate/send/${email}`, {}, false)
+export const requestSendValidationLink = (email, phoneNumber) => {
+  postData(
+    `/user/phone_number/validate/send/${email}/${phoneNumber}`,
+    {},
+    false,
+  )
     .then((data) => {
       Flux.dispatchEvent('ValidationLink', data);
     })
     .catch((err) => {
+      Flux.dispatchEvent('AccountStoreError', err);
+    });
+};
+
+export const validatePhoneNumber = (email, phoneNumber, code) => {
+  postData(
+    `/user/phone_number/validate/${email}/${phoneNumber}/${code}`,
+    {},
+    false,
+  )
+    .then((data) => {
+      Flux.dispatchEvent('ValidationLink', data);
+    })
+    .catch((err) => {
+      console.log('error action', err);
       Flux.dispatchEvent('AccountStoreError', err);
     });
 };
@@ -414,8 +524,12 @@ export {
   logoutOnUnautorized,
   editProfile,
   editProfilePicture,
+  editProfileResume,
+  editStatus,
   uploadDocument,
   deleteDocument,
+  getI9Form,
+  getW4Form,
   getDocuments,
   getUser,
   editTermsAndCondition,

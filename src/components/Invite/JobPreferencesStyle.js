@@ -1,12 +1,5 @@
 import { StyleSheet, Platform } from 'react-native';
-import {
-  BLUE_MAIN,
-  VIOLET_MAIN,
-  BLUE_DARK,
-  WHITE_MAIN,
-  BLUE_LIGHT,
-  GRAY_LIGHT,
-} from '../../shared/colorPalette';
+import { WHITE_MAIN, BLUE_LIGHT, GRAY_LIGHT } from '../../shared/colorPalette';
 
 export default StyleSheet.create({
   container: {
@@ -16,45 +9,56 @@ export default StyleSheet.create({
   },
   sliderLabel: {
     textAlign: 'center',
-    color: BLUE_DARK,
+    color: 'black',
   },
   textButton: {
     textAlign: 'center',
-    color: BLUE_DARK,
+    color: 'black',
+  },
+  textButtonClickHere: {
+    textAlign: 'center',
+    color: 'black',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  textButtonWhite: {
+    textAlign: 'center',
+    color: WHITE_MAIN,
+    fontWeight: '500',
   },
   titleInvite: {
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 14,
     marginBottom: 10,
   },
   buttonLeftActive: {
-    backgroundColor: BLUE_MAIN,
-    borderColor: 'transparent',
+    backgroundColor: 'transparent',
+    borderColor: '#D3D3D3',
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
   },
   buttonLeftInactive: {
     backgroundColor: 'transparent',
-    borderColor: BLUE_MAIN,
+    borderColor: '#D3D3D3',
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
   },
   buttonRightActive: {
-    backgroundColor: BLUE_MAIN,
-    borderColor: 'transparent',
+    backgroundColor: 'transparent',
+    borderColor: '#D3D3D3',
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
   },
   buttonRightInactive: {
     backgroundColor: 'transparent',
-    borderColor: BLUE_MAIN,
+    borderColor: '#D3D3D3',
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
   },
   itemInvite: {
     padding: 14,
     fontSize: 14,
-    color: BLUE_DARK,
+    color: 'black',
   },
   viewPositions: {
     paddingLeft: 20,
@@ -63,16 +67,50 @@ export default StyleSheet.create({
   textPositions: {
     textAlign: 'center',
     fontSize: 12,
-    color: GRAY_LIGHT,
+    fontWeight: 'bold',
+    color: 'black',
   },
   buttonRounded: {
     textAlign: 'center',
-    backgroundColor: BLUE_LIGHT,
+    backgroundColor: 'transparent',
+    height: 50,
+    borderColor: 'black',
+    // backgroundColor: 'black',
+    borderWidth: 1,
+  },
+  buttonRoundedDark: {
+    marginTop: 15,
+    textAlign: 'center',
+    alignSelf: 'center',
+    backgroundColor: 'black',
+    width: 200,
+  },
+  saveButtonPreferences: {
+    width: '50%',
+    height: '30%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   viewButtonPosition: {
     marginTop: 15,
     paddingLeft: 20,
     paddingRight: 20,
+  },
+  viewButtonSavePreferences: {
+    marginBottom: 0,
+    borderRadius: 0,
+    height: 55,
+    backgroundColor: 'black',
+    ...Platform.select({
+      android: {
+        marginBottom: 0,
+        borderRadius: 0,
+        height: 55,
+        backgroundColor: 'black',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+    }),
   },
   viewButtonAvailability: {
     marginTop: 30,
@@ -93,15 +131,15 @@ export default StyleSheet.create({
     marginLeft: 0,
     marginRight: 0,
     textAlign: 'left',
-    color: BLUE_DARK,
+    color: 'black',
   },
   sliderMaxValue: {
     fontSize: 12,
     textAlign: 'left',
-    color: BLUE_DARK,
+    color: 'black',
   },
   headerCustom: {
-    backgroundColor: BLUE_MAIN,
+    backgroundColor: '#D3D3D3',
   },
   titleHeader: {
     color: WHITE_MAIN,
@@ -110,20 +148,20 @@ export default StyleSheet.create({
   },
   viewHeader: {
     backgroundColor: BLUE_LIGHT,
-    borderRadius: 50,
+    borderRadius: 0,
     padding: 15,
     paddingLeft: 20,
     paddingRight: 20,
   },
   textHeader: {
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 14,
     textAlign: 'center',
   },
   contentScroll: {
     height: 350,
     borderWidth: 1,
-    borderColor: BLUE_MAIN,
+    borderColor: '#D3D3D3',
     borderRadius: 35,
     paddingBottom: 50,
     paddingTop: 5,
@@ -138,13 +176,13 @@ export default StyleSheet.create({
   },
   IconCheck: {
     fontSize: 20,
-    color: BLUE_DARK,
+    color: 'black',
   },
   textList: {
-    color: BLUE_DARK,
+    color: 'black',
   },
   weekendsText: {
-    color: BLUE_DARK,
+    color: 'black',
   },
   accordionAvailability: {
     borderColor: 'transparent',
@@ -154,13 +192,14 @@ export default StyleSheet.create({
   },
   textAvailability: {
     textAlign: 'center',
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 16,
   },
   textLocation: {
     textAlign: 'center',
     fontSize: 12,
-    color: GRAY_LIGHT,
+    fontWeight: 'bold',
+    color: 'black',
   },
   accordionPosition: {
     borderColor: 'transparent',
@@ -182,7 +221,7 @@ export default StyleSheet.create({
     marginRight: 5,
   },
   buttomLeft: {
-    backgroundColor: BLUE_DARK,
+    backgroundColor: 'black',
   },
   textButtomLeft: {
     color: WHITE_MAIN,
@@ -193,19 +232,19 @@ export default StyleSheet.create({
   },
   buttomRight: {
     backgroundColor: 'transparent',
-    borderColor: VIOLET_MAIN,
+    borderColor: 'black',
     borderWidth: 1,
   },
   textButtomRight: {
-    color: VIOLET_MAIN,
+    color: 'black',
   },
   viewInput: {
     backgroundColor: 'transparent',
     height: 55,
     width: '100%',
-    borderColor: BLUE_MAIN,
-    color: BLUE_DARK,
-    borderRadius: 50,
+    borderColor: '#D3D3D3',
+    color: 'black',
+    borderRadius: 0,
     borderWidth: 1,
     paddingLeft: 20,
     paddingTop: 12,
@@ -235,7 +274,7 @@ export default StyleSheet.create({
     paddingRight: 30,
   },
   labelForm: {
-    color: BLUE_DARK,
+    color: 'black',
   },
   viewWarning: {
     backgroundColor: '#ff7272',

@@ -8,7 +8,7 @@ class AccountStore extends FluxStore {
     // The login Event
     this.addEvent('Login', (nextState) => {
       LOG(this, nextState);
-
+      console.log('NEXT STATE', nextState);
       if (!nextState.token) return nextState;
 
       if (
@@ -52,9 +52,12 @@ class AccountStore extends FluxStore {
     this.addEvent('PasswordReset');
     this.addEvent('EditProfile');
     this.addEvent('EditProfilePicture');
+    this.addEvent('EditProfileResume');
     this.addEvent('UploadDocument');
     this.addEvent('DeleteDocument');
     this.addEvent('GetDocuments');
+    this.addEvent('GetI9Form');
+    this.addEvent('GetW4Form');
     this.addEvent('GetDocumentsTypes');
     this.addEvent('ActiveShifts');
     this.addEvent('ValidationLink');

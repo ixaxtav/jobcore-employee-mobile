@@ -8,22 +8,23 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import { Label, ListItem, Text, Thumbnail } from 'native-base';
+import { Label, ListItem, Text, Thumbnail, Button, Icon } from 'native-base';
 import styles from './style';
 import {
-  BLUE_DARK,
   // VIOLET_MAIN,
-  BLUE_LIGHT,
   LOW_RED,
   BLUE_MAIN,
+  BLACK_MAIN,
 } from '../../shared/colorPalette';
 import {
   AUTH_ROUTE,
   INVITE_DETAILS_ROUTE_V2,
   JOB_INVITES_ROUTE,
+  JOB_PREFERENCES_ONBOARDING_ROUTE,
   MYJOBS_ROUTE,
   REVIEWS_ROUTE,
   JOB_PAYMENTS_ROUTE,
+  EMPLOYEE_ONBOARDING_ROUTE,
 } from '../../constants/routes';
 import moment from 'moment';
 import accountStore from '../Account/AccountStore';
@@ -48,6 +49,7 @@ import firebase from 'react-native-firebase';
 import { NavigationActions } from 'react-navigation';
 import PROFILE_IMG from '../../assets/image/profile.png';
 import { TabHeader } from '../../shared/components/TabHeader';
+import { Permission, PERMISSION_TYPE } from '../../shared/permission';
 // import preferencesStyles from '../Invite/JobPreferencesStyle';
 import JobCompletedScreen from '../MyJobs/JobCompletedScreen';
 import WorkModeScreen from '../MyJobs/WorkModeScreen';
@@ -58,6 +60,8 @@ import UpcomingJobScreen from '../MyJobs/UpcomingJobScreen';
 import ApplicationDetailScreen from '../MyJobs/ApplicationDetailScreen';
 import { fetchActiveShiftsV2, getCompletedJobs } from '../MyJobs/actions';
 import { log } from 'pure-logger';
+import UploadDocumentScreen from '../Account/UploadDocumentScreen';
+import FederalW4tScreen from '../Account/FederalW4tScreen';
 
 /**
  *
@@ -66,10 +70,11 @@ class DashboardScreen extends Component {
   static navigationOptions = {
     header: null,
     tabBarLabel: i18next.t('DASHBOARD.dashboard'),
-    tabBarIcon: () => (
-      <Image
-        style={{ resizeMode: 'contain', height: 42, width: 42 }}
-        source={require('../../assets/image/dashboard.png')}
+    tabBarIcon: ({ tintColor }) => (
+      <Icon
+        type="MaterialCommunityIcons"
+        style={{ color: tintColor || 'black' }}
+        name="view-dashboard"
       />
     ),
   };
@@ -79,14 +84,18 @@ class DashboardScreen extends Component {
     this.state = {
       user: (accountStore.getState('Login') || {}).user || {},
       isLoading: false,
+      filterSelected: 'getPendingPayments',
       isRefreshing: false,
       stopReceivingInvites: false,
       rating: 0,
       payments: 0,
       invites: [],
       upcomingJobs: [],
+      positions: [],
       jobs: [],
       tomorrowDay: false,
+      status: '',
+      location: '',
       todayDay: false,
       nextShift: null,
       jobsCompleted: [],
@@ -96,9 +105,15 @@ class DashboardScreen extends Component {
   }
 
   async componentDidMount() {
+    Permission.requestNotifyPermission();
+
     this.logoutSubscription = accountStore.subscribe(
       'Logout',
       this.logoutHandler,
+    );
+    this.getPendingPaymentsSubscription = jobStore.subscribe(
+      'GetPendingPayments',
+      this.getPaymentsHandler,
     );
     this.logoutSubscription = accountStore.subscribe(
       'ActiveShifts',
@@ -109,18 +124,19 @@ class DashboardScreen extends Component {
     this.loginSubscription = accountStore.subscribe('Login', (data) => {
       this.loginHandler(data);
     });
-    this.getEmployeeSubscription = inviteStore.subscribe(
-      'GetJobPreferences',
-      (data) => {
-        this.getEmployeeHandler(data);
-      },
-    );
+    this.getEmployeeSubscribe = jobStore.subscribe('GetEmployee', (data) => {
+      this.getEmployeeHandler(data);
+    });
+
     this.stopReceivingInvitesSubscription = inviteStore.subscribe(
       'StopReceivingInvites',
       (data) => {
         this.stopReceivingInvitesHandler(data);
       },
     );
+    this.I9FormSubscription = inviteStore.subscribe('I9Form', (data) => {
+      this.i9Handler(data);
+    });
     this.getJobInvitesSubscription = inviteStore.subscribe(
       'JobInvites',
       (jobInvites) => {
@@ -139,6 +155,7 @@ class DashboardScreen extends Component {
         this.getJobsHandler(data);
       },
     );
+
     this.updateTokenSubscription = fcmStore.subscribe(
       'UpdateFcmToken',
       (data) => {
@@ -205,6 +222,7 @@ class DashboardScreen extends Component {
     let openClockIns = [];
     try {
       openClockIns = await getOpenClockIns();
+      this.setState({ openClockIns: openClockIns });
     } catch (e) {
       console.log(`SPLASH:openClockins`, e);
     }
@@ -223,16 +241,24 @@ class DashboardScreen extends Component {
         this.refreshOnAction();
       },
     );
+
+    this.loadData();
+    this.getEmployeeData();
   }
 
   componentWillUnmount() {
     this.logoutSubscription.unsubscribe();
     this.loginSubscription.unsubscribe();
-    this.getEmployeeSubscription.unsubscribe();
+    this.getEmployeeSubscribe.unsubscribe();
     this.stopReceivingInvitesSubscription.unsubscribe();
+    this.I9FormSubscription.unsubscribe();
     this.getJobInvitesSubscription.unsubscribe();
     this.getUpcomingJobsSubscription.unsubscribe();
     this.getCompletedJobsSubscription.unsubscribe();
+    this.getPendingPaymentsSubscription.unsubscribe();
+    this.getJobPreferencesSubscription.unsubscribe();
+    this.getLocationSubscription.unsubscribe();
+    this.saveLocationSubscription.unsubscribe();
     this.updateTokenSubscription.unsubscribe();
     this.fcmStoreError.unsubscribe();
     this.inviteStoreError.unsubscribe();
@@ -243,6 +269,7 @@ class DashboardScreen extends Component {
     //
     navigator.geolocation.getCurrentPosition(
       (data) => {
+        console.log('geolocatoin', data);
         log(`Dashboard:`, data);
       },
       { maximumAge: 0, enableHighAccuracy: true },
@@ -251,6 +278,29 @@ class DashboardScreen extends Component {
 
   logoutHandler = () => {
     this.props.navigation.navigate(AUTH_ROUTE);
+  };
+
+  getPaymentsHandler = (payments) => {
+    let emptyPayments = false;
+    let totalAmount = 0,
+      totalHours = 0;
+    if (Array.isArray(payments) && !payments.length) emptyPayments = true;
+    payments.forEach((payment) => {
+      totalAmount += parseFloat(payment.total_amount);
+      totalHours += parseFloat(payment.regular_hours);
+    });
+    this.setState({
+      isLoading: false,
+      isRefreshing: false,
+      emptyPayments,
+      payments: totalAmount,
+    });
+  };
+
+  loadData = () => {
+    this.setState({ isLoading: true }, () => {
+      this.getPayments();
+    });
   };
 
   loginHandler = (data) => {
@@ -265,13 +315,36 @@ class DashboardScreen extends Component {
     this.setState({ user: user });
   };
 
+  // getJobPreferencesHandler = (data) => {
+  //   console.log('job prefrence handler', data);
+  //   // if(Array.isArray(data.positions) && data.positions.length == 0 )  this.props.navigation.navigate(JOB_PREFERENCES_ONBOARDING_ROUTE);
+  //   // else if(!this.state.status && this.state.user.profile.bio != "" ) this.props.navigation.navigate(UploadDocumentScreen.routeName)
+
+  //   // else{
+  //     this.setState({
+  //       isLoading: false,
+  //       isRefreshing: false,
+  //       positions: data.positions,
+  //     });
+  //   // }
+  // };
+
   getEmployeeHandler = (data) => {
+    let status;
+
+    if (data.employment_verification_status == 'APPROVED') status = 'Approved';
+    else {
+      status = 'Not Approved';
+    }
+
     this.setState({
       isLoading: false,
       isRefreshing: false,
       stopReceivingInvites: data.stop_receiving_invites,
       rating: Math.round(data.rating) || 'N/A',
-      payments: data.total_pending_payments,
+      // payments: data.total_pending_payments,
+      status: status,
+      employee: data,
     });
   };
 
@@ -279,6 +352,13 @@ class DashboardScreen extends Component {
     this.setState({
       stopReceivingInvites: data.stop_receiving_invites,
       isRefreshing: false,
+    });
+  };
+  i9Handler = (data) => {
+    this.setState((prevState) => {
+      let employee = Object.assign({}, prevState.employee);
+      employee.i9form = data;
+      return { employee };
     });
   };
 
@@ -329,7 +409,6 @@ class DashboardScreen extends Component {
           todayDay: false,
         });
       }
-      console.log('hoyy ', moment(today).format('MMM DD YY'));
       if (moment(today).format('MMM DD YY') === shiftDayNext) {
         this.setState({
           todayDay: true,
@@ -337,7 +416,12 @@ class DashboardScreen extends Component {
         });
       }
     }
-    this.setState({ jobs: [...jobsData], isRefreshing: false, nextShift });
+    this.setState({
+      jobs: [...jobsData],
+      isRefreshing: false,
+      isLoading: false,
+      nextShift,
+    });
   };
 
   pushNotificationHandler = (notificationData) => {
@@ -377,7 +461,12 @@ class DashboardScreen extends Component {
     }
   };
 
+  getPayments = () => {
+    jobActions[this.state.filterSelected]();
+  };
+
   goToJobDetails = (job) => {
+    console.log('JOB', job);
     const { navigation } = this.props;
     if (!job) return;
     if (
@@ -404,6 +493,15 @@ class DashboardScreen extends Component {
     }
 
     if (now.isAfter(moment.utc(job.starting_at))) {
+      return navigation.navigate(WorkModeScreen.routeName, {
+        shiftId: job.id,
+      });
+    }
+    if (
+      this.state.openClockIns &&
+      this.state.openClockIns.length > 0 &&
+      this.state.openClockIns.find((e) => e.shift.id == job.id)
+    ) {
       return navigation.navigate(WorkModeScreen.routeName, {
         shiftId: job.id,
       });
@@ -476,7 +574,7 @@ class DashboardScreen extends Component {
               {item.status === 'EXPIRED' && (
                 <Label
                   style={{
-                    color: BLUE_DARK,
+                    color: 'black',
                   }}>
                   Completed
                 </Label>
@@ -587,7 +685,6 @@ class DashboardScreen extends Component {
       tomorrowDay,
       todayDay,
     } = this.state;
-    // console.log('jobs ', jobs)
     return (
       <I18n>
         {(t) => (
@@ -600,12 +697,123 @@ class DashboardScreen extends Component {
               title={t('DASHBOARD.dashboard')}
               screenName={'dashboard'}
             />
+            {this.state.employee &&
+              this.state.employee.i9form &&
+              this.state.employee.i9form.status == 'PENDING' && (
+              <View
+                style={{
+                  backgroundColor: '#f0ad4e',
+                  padding: 10,
+                  borderTopWidth: 0.5,
+                  borderColor: 'black',
+                }}>
+                <React.Fragment>
+                  <Text
+                    style={{
+                      color: 'black',
+                      fontSize: 13,
+                      fontWeight: '700',
+                    }}>
+                    <Icon
+                      style={{ color: 'black', fontSize: 14 }}
+                      type="FontAwesome"
+                      name={'exclamation-circle'}
+                    />
+                    {' Employment Verification Required'}
+                  </Text>
+                </React.Fragment>
+              </View>
+            )}
+
+            {this.state.employee && !this.state.employee.i9form && (
+              <View
+                style={{
+                  backgroundColor: LOW_RED,
+                  padding: 10,
+                  borderTopWidth: 0.5,
+                  borderColor: 'black',
+                }}>
+                <TouchableOpacity
+                  onPress={() =>
+                    this.props.navigation.navigate(
+                      UploadDocumentScreen.routeName,
+                    )
+                  }>
+                  <React.Fragment>
+                    <Text
+                      style={{
+                        color: 'black',
+                        fontSize: 13,
+                        fontWeight: '700',
+                      }}>
+                      <Icon
+                        style={{ color: 'black', fontSize: 14 }}
+                        type="FontAwesome"
+                        name={'exclamation-circle'}
+                      />
+                      {' Employment Verification Required'}
+                    </Text>
+                  </React.Fragment>
+                </TouchableOpacity>
+              </View>
+            )}
+
+            {this.state.employee && this.state.employee.w4_year == 0 ? (
+              <View
+                style={{
+                  backgroundColor: LOW_RED,
+                  borderTopWidth: 0.5,
+                  borderColor: 'black',
+                  padding: 10,
+                }}>
+                <TouchableOpacity
+                  onPress={() =>
+                    this.props.navigation.navigate(FederalW4tScreen.routeName)
+                  }>
+                  <React.Fragment>
+                    <Text
+                      style={{
+                        color: 'black',
+                        fontSize: 13,
+                        fontWeight: 'bold',
+                      }}>
+                      <Icon
+                        style={{ color: 'black', fontSize: 14 }}
+                        type="FontAwesome"
+                        name={'exclamation-circle'}
+                      />{' '}
+                      W-4 Form Required
+                    </Text>
+
+                    {/* <View
+                    style={{
+                      flexDirection: 'row',
+                    }}>
+             
+                    <Text
+                      style={{
+                        color: BLACK_MAIN,
+                        fontSize: 13,
+                        marginRight: 3,
+                      }}>
+                    Submit your W-4 Form to get the correct amount deducted from your paychecks.
+                    </Text>
+                  </View> */}
+                  </React.Fragment>
+                </TouchableOpacity>
+              </View>
+            ) : null}
             <View style={styles.flexOne}>
               <TouchableOpacity
                 onPress={this.goToProfile}
                 style={styles.containerImg}>
                 <Thumbnail
-                  medium
+                  style={{
+                    width: 66,
+                    height: 66,
+                    borderRadius: 33,
+                    overflow: 'hidden',
+                  }}
                   source={
                     user && user.profile && user.profile.picture
                       ? { uri: user.profile.picture }
@@ -615,37 +823,66 @@ class DashboardScreen extends Component {
               </TouchableOpacity>
               <View style={styles.profileInfoContainer}>
                 {user && (
-                  <TouchableOpacity onPress={this.goToEditProfile}>
+                  <TouchableOpacity
+                    style={{ paddingBottom: 10 }}
+                    onPress={this.goToEditProfile}>
                     <Text
                       style={{
-                        color: BLUE_DARK,
+                        color: 'black',
                         fontWeight: 'bold',
                         fontSize:
-                          Dimensions.get('window').width <= 340 ? 17 : 19,
+                          Dimensions.get('window').width <= 400 ? 17 : 19,
                       }}>
                       {`${this.state.user.first_name} ${this.state.user.last_name}`}
                     </Text>
                   </TouchableOpacity>
                 )}
+                {/* <View style={{flexDirection: 'row'}}>
+                <Text style={styles.amountText, {fontSize: 12}}>Status: <Text style={{color: 'black', fontWeight: '800', fontSize: 12}}>{this.state.status}</Text></Text>
+                </View> */}
+
+                <TouchableOpacity
+                  style={{
+                    flexDirection: 'row',
+                    paddingBottom: 10,
+                  }}>
+                  <Text style={(styles.amountText, { fontSize: 12 })}>
+                    Status{' '}
+                    <Text
+                      style={{
+                        color: 'black',
+                        fontWeight: '800',
+                        fontSize: 12,
+                      }}>
+                      {this.state.status}
+                    </Text>
+                  </Text>
+                </TouchableOpacity>
                 <TouchableOpacity
                   onPress={this.goToReviews}
                   style={{
                     flexDirection: 'row',
+                    paddingBottom: 10,
                   }}>
-                  <Text style={styles.yourRating}>Your Rating</Text>
+                  <Text style={(styles.yourRating, { fontSize: 12 })}>
+                    Your Rating{' '}
+                  </Text>
                   <StarComponent rating={rating} />
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={this.goToPayments}
                   style={{
                     flexDirection: 'row',
+                    paddingBottom: 10,
                   }}>
-                  <Text style={styles.amountText}>Amount</Text>
+                  <Text style={(styles.amountText, { fontSize: 12 })}>
+                    Amount{' '}
+                  </Text>
                   <Text
                     style={{
-                      color: BLUE_DARK,
+                      color: 'black',
                       fontWeight: '800',
-                      fontSize: 13,
+                      fontSize: 12,
                     }}>
                     ${payments.toFixed(2)}
                   </Text>
@@ -656,7 +893,7 @@ class DashboardScreen extends Component {
               style={[
                 styles.flexTwo,
                 {
-                  backgroundColor: activeShift ? LOW_RED : BLUE_LIGHT,
+                  backgroundColor: activeShift ? LOW_RED : 'white',
                 },
               ]}>
               {activeShift ? (
@@ -699,7 +936,7 @@ class DashboardScreen extends Component {
                     onPress={() => this.goToJobDetails(nextShift)}>
                     <Text
                       style={{
-                        color: BLUE_DARK,
+                        color: 'black',
                         fontSize: 13,
                         fontWeight: '700',
                       }}>
@@ -707,7 +944,7 @@ class DashboardScreen extends Component {
                     </Text>
                     <Text
                       style={{
-                        color: BLUE_DARK,
+                        color: 'black',
                         fontSize: 13,
                         marginRight: 3,
                       }}>
@@ -733,7 +970,7 @@ class DashboardScreen extends Component {
                 <React.Fragment>
                   <Text
                     style={{
-                      color: BLUE_DARK,
+                      color: 'black',
                       fontSize: 13,
                       fontWeight: '700',
                     }}>
@@ -741,7 +978,7 @@ class DashboardScreen extends Component {
                   </Text>
                   <Text
                     style={{
-                      color: BLUE_DARK,
+                      color: 'black',
                       fontSize: 13,
                       marginRight: 3,
                     }}>
@@ -761,7 +998,7 @@ class DashboardScreen extends Component {
                     </TouchableOpacity>
                     <Text
                       style={{
-                        color: BLUE_DARK,
+                        color: 'black',
                         fontSize: 13,
                         marginRight: 3,
                       }}>
@@ -787,10 +1024,19 @@ class DashboardScreen extends Component {
                   style={[
                     styles.tabOne,
                     {
-                      backgroundColor: tabs === 1 ? BLUE_MAIN : 'white',
+                      backgroundColor: tabs === 1 ? 'black' : 'white',
                     },
                   ]}>
-                  <View style={styles.pointBlack} />
+                  {/* <View style={styles.pointBlack} /> */}
+                  <View>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        color: tabs === 1 ? 'white' : 'black',
+                      }}>
+                      Invitations ({invites && invites.length})
+                    </Text>
+                  </View>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() =>
@@ -801,13 +1047,22 @@ class DashboardScreen extends Component {
                   style={[
                     styles.tabTwo,
                     {
-                      backgroundColor: tabs === 2 ? BLUE_MAIN : 'white',
+                      backgroundColor: tabs === 2 ? 'black' : 'white',
                     },
                   ]}>
-                  <View style={styles.pointBlack} />
+                  {/* <View style={styles.pointBlack} /> */}
+                  <View>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        color: tabs === 2 ? 'white' : 'black',
+                      }}>
+                      Jobs ({jobs && jobs.length})
+                    </Text>
+                  </View>
                 </TouchableOpacity>
               </View>
-              <View style={styles.containerTextInvitationJobs}>
+              {/* <View style={styles.containerTextInvitationJobs}>
                 <View style={styles.containerChildTextInvitation}>
                   <Text
                     style={{
@@ -824,7 +1079,7 @@ class DashboardScreen extends Component {
                     Jobs ({jobs && jobs.length})
                   </Text>
                 </View>
-              </View>
+              </View> */}
             </View>
             <View
               style={{
@@ -837,7 +1092,7 @@ class DashboardScreen extends Component {
                     <RefreshControl
                       refreshing={isRefreshing}
                       onRefresh={this.refresh}
-                      tintColor={BLUE_LIGHT}
+                      tintColor={'#D3D3D3'}
                     />
                   }
                   data={invites}
@@ -857,7 +1112,7 @@ class DashboardScreen extends Component {
                       <RefreshControl
                         refreshing={isRefreshing}
                         onRefresh={this.refresh}
-                        tintColor={BLUE_LIGHT}
+                        tintColor={'#D3D3D3'}
                       />
                     }
                     data={jobs}
@@ -893,16 +1148,24 @@ class DashboardScreen extends Component {
   };
 
   refresh = async () => {
+    console.log('Refresh 1');
     this.setState({ isRefreshing: true, isLoading: true });
-
+    console.log('Refresh 2');
     await this.getEmployee();
+    console.log('Refresh 22');
     await this.getInvites();
+    console.log('Refresh 3');
     await this.getUpcomingJobs('dashboard');
+    console.log('Refresh 4');
     await getCompletedJobs('dashboard');
+    console.log('Refresh 5');
   };
   refreshOnAction = async () => {
+    console.log('Refresh Action 1');
     await this.getInvites();
+    console.log('Refresh Action 2');
     await this.getUpcomingJobs('dashboard');
+    console.log('Refresh Action 3');
     await getCompletedJobs('dashboard');
   };
 
@@ -934,7 +1197,11 @@ class DashboardScreen extends Component {
   updateFcmToken = (currentFcmToken, fcmToken) => {
     fcmActions.updateFcmToken(currentFcmToken, fcmToken);
   };
-
+  getEmployeeData = () => {
+    this.setState({ isLoading: true }, () => {
+      jobActions.getEmployeeData();
+    });
+  };
   hasFcmMessagePermission = () => {
     firebase
       .messaging()

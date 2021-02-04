@@ -117,6 +117,7 @@ class InviteDetails extends Component {
   };
 
   render() {
+    console.log('invitation', this.state.invite.shit);
     return (
       <I18n>
         {(t) => (

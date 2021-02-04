@@ -6,7 +6,6 @@ import {
   GRAY_MAIN,
   RED_MAIN,
   BLACK_MAIN,
-  BLUE_DARK,
 } from '../../shared/colorPalette';
 
 export default StyleSheet.create({
@@ -34,7 +33,7 @@ export default StyleSheet.create({
   },
   textLocation: {
     textAlign: 'center',
-    color: BLUE_DARK,
+    color: 'black',
   },
   container: {
     flex: 1,

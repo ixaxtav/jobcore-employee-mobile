@@ -27,7 +27,7 @@ export const bankAccountsStyle = StyleSheet.create({
   },
   viewButtomLogin: {
     backgroundColor: BLUE_DARK,
-    borderRadius: 50,
+    borderRadius: 0,
     height: 45,
     marginBottom: 0,
     marginTop: 40,
@@ -36,7 +36,7 @@ export const bankAccountsStyle = StyleSheet.create({
   viewInput: {
     backgroundColor: 'transparent',
     borderColor: BLUE_MAIN,
-    borderRadius: 50,
+    borderRadius: 0,
     borderWidth: 1,
     color: BLUE_DARK,
     height: 40,

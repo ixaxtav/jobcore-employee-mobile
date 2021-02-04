@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { JobHeader } from '../../components/MyJobs/components/JobHeader';
@@ -41,6 +41,12 @@ const JobInformation = (props) => {
       <View style={{ height: 85 }}>
         <JobHours price={price} hours={hours} />
       </View>
+      {shift.description != '' && (
+        <View style={{ paddingRight: 10, paddingLeft: 10, paddingBottom: 10 }}>
+          <Text style={{ fontWeight: 700 }}>Shift Description:</Text>
+          <Text>{shift.description}</Text>
+        </View>
+      )}
     </>
   );
 };

@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   viewButtomLogin: {
     marginBottom: 0,
-    borderRadius: 50,
+    borderRadius: 0,
     paddingVertical: 12,
     justifyContent: 'center',
     alignItems: 'center',

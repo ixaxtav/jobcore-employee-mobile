@@ -35,12 +35,12 @@ export default StyleSheet.create({
   },
   viewButtomLogin: {
     marginBottom: 0,
-    borderRadius: 50,
+    borderRadius: 0,
     height: 55,
     backgroundColor: BLUE_DARK,
   },
   viewButtomSignUp: {
-    borderRadius: 50,
+    borderRadius: 0,
     height: 55,
     textAlign: 'center',
     backgroundColor: 'transparent',
@@ -71,7 +71,7 @@ export default StyleSheet.create({
     width: '100%',
     borderColor: BLUE_MAIN,
     color: BLUE_DARK,
-    borderRadius: 50,
+    borderRadius: 0,
     borderWidth: 1,
     paddingLeft: 20,
     paddingTop: 12,

@@ -45,13 +45,13 @@ const styles = StyleSheet.create({
   },
   viewButtomLogin: {
     marginBottom: 0,
-    borderRadius: 50,
+    borderRadius: 0,
     height: 55,
     backgroundColor: BLUE_DARK,
     ...Platform.select({
       android: {
         marginBottom: 0,
-        borderRadius: 50,
+        borderRadius: 0,
         height: 55,
         backgroundColor: BLUE_DARK,
         alignItems: 'center',
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     }),
   },
   viewButtomSignUp: {
-    borderRadius: 50,
+    borderRadius: 0,
     height: 55,
     textAlign: 'center',
     backgroundColor: 'transparent',
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     width: '100%',
     borderColor: BLUE_MAIN,
     color: BLUE_DARK,
-    borderRadius: 50,
+    borderRadius: 0,
     borderWidth: 1,
     paddingLeft: 20,
     paddingTop: 12,

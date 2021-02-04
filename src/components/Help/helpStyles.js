@@ -35,7 +35,7 @@ const helpStyles = StyleSheet.create({
   },
   itemButtonNext: {
     backgroundColor: '#6CACB5',
-    borderRadius: 50,
+    borderRadius: 0,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',

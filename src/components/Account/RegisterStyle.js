@@ -1,15 +1,17 @@
 import { StyleSheet, Platform, Dimensions } from 'react-native';
 var width = Dimensions.get('window').width;
-import { BLUE_MAIN, BLUE_DARK } from '../../shared/colorPalette';
+import { BLUE_MAIN, BLUE_DARK, WHITE_MAIN } from '../../shared/colorPalette';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: WHITE_MAIN,
   },
+
   viewLogo: {
-    width: '75%',
+    width: '80%',
     height: 90,
     ...Platform.select({
       ios: {
@@ -20,6 +22,7 @@ export default StyleSheet.create({
       },
     }),
   },
+
   viewBackground: {
     backgroundColor: '#ccc',
     flex: 1,
@@ -33,17 +36,18 @@ export default StyleSheet.create({
     width: width,
     paddingLeft: 35,
     paddingRight: 35,
-    marginTop: '20%',
+    marginTop: '10%',
     marginBottom: 20,
   },
   viewButtomLogin: {
     marginBottom: 0,
-    borderRadius: 50,
+    borderRadius: 0,
+    elevation: 0,
     height: 55,
-    backgroundColor: BLUE_DARK,
+    backgroundColor: 'black',
   },
   viewButtomSignUp: {
-    borderRadius: 50,
+    borderRadius: 0,
     height: 55,
     textAlign: 'center',
     backgroundColor: 'transparent',
@@ -55,7 +59,12 @@ export default StyleSheet.create({
   },
   termsAndConditionsTitle: {
     marginLeft: 5,
-    color: BLUE_DARK,
+    color: 'black',
+  },
+  termsAndConditionsTermTitle: {
+    marginLeft: 5,
+    color: 'black',
+    fontWeight: 'bold',
   },
   termsTitleContainer: {
     flexDirection: 'row',
@@ -66,7 +75,7 @@ export default StyleSheet.create({
     fontWeight: '500',
     textAlign: 'center',
     marginTop: 25,
-    color: BLUE_DARK,
+    color: 'black',
   },
   textButtomSave: {
     fontSize: 14,
@@ -74,29 +83,54 @@ export default StyleSheet.create({
     textAlign: 'right',
     marginTop: 5,
     marginRight: 10,
-    color: BLUE_DARK,
+    color: 'black',
   },
 
   viewInput: {
     backgroundColor: 'transparent',
     height: 55,
     width: '100%',
-    borderColor: BLUE_MAIN,
-    color: BLUE_DARK,
-    borderRadius: 50,
+    borderColor: 'black',
+    color: 'black',
+    borderRadius: 0,
     borderWidth: 1,
     paddingLeft: 20,
     paddingTop: 0,
     paddingRight: 10,
     marginBottom: 10,
   },
+  viewInputGoogle: {
+    backgroundColor: 'transparent',
+    height: 55,
+    width: '100%',
+    borderColor: 'black',
+    color: 'black',
+    borderRadius: 0,
+    borderWidth: 1,
+    paddingLeft: 20,
+    paddingTop: 0,
+    paddingRight: 10,
+    marginBottom: 10,
+    zIndex: 9999,
+  },
   borderNone: {
     borderBottomColor: 'transparent',
   },
   labelForm: {
-    color: BLUE_DARK,
+    color: 'black',
   },
   formContainer: {
     marginTop: 20,
+  },
+  codeVerificationTitle: { textAlign: 'center', color: 'black', fontSize: 18 },
+
+  resendButtomClick: {
+    fontSize: 18,
+    fontWeight: '500',
+    textAlign: 'center',
+    marginTop: 15,
+    marginBottom: 40,
+    textDecorationLine: 'underline',
+    color: 'black',
   },
 });

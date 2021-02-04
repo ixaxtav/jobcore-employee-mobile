@@ -1,11 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Button } from 'native-base';
-import {
-  BLUE_MAIN,
-  WHITE_MAIN,
-  VIOLET_MAIN,
-} from '../../shared/colorPalette';
+import { WHITE_MAIN } from '../../shared/colorPalette';
 import { withNavigation } from 'react-navigation';
 
 const styles = {
@@ -20,32 +16,32 @@ const styles = {
   viewButtomLeft: {
     width: '50%',
     marginRight: 5,
-    backgroundColor: VIOLET_MAIN,
-    borderRadius: 50,
+    backgroundColor: 'black',
+    borderRadius: 0,
   },
   buttomLeft: {
-    borderColor: VIOLET_MAIN,
+    borderColor: 'black',
     color: WHITE_MAIN,
     borderWidth: 1,
   },
   viewButtomRight: {
     width: '50%',
     marginLeft: 5,
-    backgroundColor: BLUE_MAIN,
-    borderRadius: 50,
+    backgroundColor: 'black',
+    borderRadius: 0,
   },
   buttomRight: {
-    borderColor: BLUE_MAIN,
+    borderColor: 'black',
     color: WHITE_MAIN,
   },
   textWhite: {
     color: WHITE_MAIN,
   },
   textViolet: {
-    color: VIOLET_MAIN,
+    color: 'black',
   },
   textBlue: {
-    color: BLUE_MAIN,
+    color: 'black',
   },
 };
 
@@ -69,7 +65,9 @@ const BtnCancelSave = (props) => {
           full
           rounded
           bordered>
-          <Text style={styles.textWhite}>{props.t('JOB_PREFERENCES.save')}</Text>
+          <Text style={styles.textWhite}>
+            {props.t('JOB_PREFERENCES.save')}
+          </Text>
         </Button>
       </View>
     </View>

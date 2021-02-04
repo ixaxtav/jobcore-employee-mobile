@@ -27,6 +27,7 @@ class InviteStore extends FluxStore {
     this.addEvent('GetJobPreferences');
     this.addEvent('EditJobPreferences');
     this.addEvent('StopReceivingInvites');
+    this.addEvent('I9Form');
     this.addEvent('EditPositions');
     this.addEvent('NarrowPreferences');
 

@@ -1,9 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import {
   BLUE_MAIN,
   VIOLET_MAIN,
   GRAY_MAIN,
   RED_MAIN,
+  BLUE_DARK,
   BLACK_MAIN,
 } from '../../shared/colorPalette';
 
@@ -19,8 +20,8 @@ const inviteStyles = StyleSheet.create({
   badge: {
     backgroundColor: RED_MAIN,
     position: 'absolute',
-    right: 20,
-    top: 5,
+    right: 10,
+    top: 1,
   },
   titleHeader: {
     color: '#fff',
@@ -33,9 +34,26 @@ const inviteStyles = StyleSheet.create({
   buttomReject: {
     backgroundColor: VIOLET_MAIN,
   },
+  viewButtonSavePreferences: {
+    marginBottom: 0,
+    borderRadius: 0,
+    height: 90,
+    backgroundColor: BLUE_DARK,
+    ...Platform.select({
+      android: {
+        marginBottom: 0,
+        borderRadius: 0,
+        height: 55,
+        backgroundColor: BLUE_DARK,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+    }),
+  },
   viewListItem: {
-    paddingLeft: 20,
+    paddingLeft: 5,
     paddingRight: 75,
+    marginLeft: 5,
   },
   viewDataOffers: {
     flexDirection: 'column',

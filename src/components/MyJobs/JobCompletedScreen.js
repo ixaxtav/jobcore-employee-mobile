@@ -10,7 +10,7 @@ import { JobHeader } from './components/JobHeader';
 import { Earnings } from './components/Earnings';
 import jobStore from './JobStore';
 import * as Progress from 'react-native-progress';
-import { BLUE_DARK, BLUE_MAIN } from '../../shared/colorPalette';
+import { BLUE_MAIN } from '../../shared/colorPalette';
 import { Review } from './components/Review';
 import { ReviewButton } from './components/ReviewButton';
 import { calculateEarningsFromClockIns, getJob, getJobRate } from './actions';
@@ -134,15 +134,15 @@ class JobCompletedScreen extends Component {
                 progress={minutesPassedPct}
                 width={270}
                 height={30}
-                color={BLUE_MAIN}
+                color={'#ff7272'}
                 unfilledColor={'transparent'}
-                borderColor={BLUE_DARK}>
+                borderColor={'black'}>
                 <Text
                   style={{
                     position: 'absolute',
                     top: 5,
                     left: 10,
-                    color: BLUE_DARK,
+                    color: 'black',
                   }}>
                   {fromTime}
                 </Text>
@@ -151,7 +151,7 @@ class JobCompletedScreen extends Component {
                     position: 'absolute',
                     top: 5,
                     right: 10,
-                    color: BLUE_DARK,
+                    color: 'black',
                   }}>
                   {toTime}
                 </Text>

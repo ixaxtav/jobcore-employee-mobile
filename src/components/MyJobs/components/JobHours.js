@@ -10,7 +10,7 @@ import { BLUE_DARK } from '../../../shared/colorPalette';
 const styles = StyleSheet.create({
   textTitle: {
     textAlign: 'center',
-    color: BLUE_DARK,
+    color: 'black',
     fontWeight: '800',
     paddingTop: 20,
   },

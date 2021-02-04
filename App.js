@@ -10,8 +10,12 @@ import { YellowBox } from 'react-native';
 import { Root } from 'native-base';
 import LoginScreen from './src/components/Account/LoginScreen';
 import RegisterScreen from './src/components/Account/RegisterScreen';
+import ValidationCodeScreen from './src/components/Account/ValidationCodeScreen';
 import EditProfile from './src/components/Account/EditProfile';
 import UploadDocumentScreen from './src/components/Account/UploadDocumentScreen';
+import FederalW4tScreen from './src/components/Account/FederalW4tScreen';
+import I9FormScreen from './src/components/Account/I9FormScreen';
+import BackgroundCheckScreen from './src/components/Account/BackgroundCheckScreen';
 import BankAccounts from './src/components/BankAccounts/BankAccounts';
 import AddBankAccount from './src/components/BankAccounts/AddBankAccount';
 import ForgotScreen from './src/components/Account/ForgotScreen';
@@ -23,6 +27,14 @@ import DashboardScreen from './src/components/Dashboard';
 import JobInvites from './src/components/Invite/JobInvites';
 import InviteDetailsV2 from './src/components/Invite/InviteDetailsV2';
 import JobPreferences from './src/components/Invite/JobPreferences';
+//ONBOARDING
+import JobPreferencesOnboarding from './src/components/Invite/JobPreferencesOnboardingScreen';
+import PositionOnboarding from './src/components/EmployeeOnboarding/PositionOnboarding';
+import ResumeOnboarding from './src/components/EmployeeOnboarding/ResumeOnboarding';
+import PictureOnboarding from './src/components/EmployeeOnboarding/PictureOnboarding';
+import LocationOnboarding from './src/components/EmployeeOnboarding/LocationOnboarding';
+import AvailabilityOnboarding from './src/components/EmployeeOnboarding/AvailabilityOnboarding';
+import DOBOnboarding from './src/components/EmployeeOnboarding/DOBOnboarding';
 import Position from './src/components/Invite/Position';
 import Availability from './src/components/Invite/Availability';
 import MyJobs from './src/components/MyJobs';
@@ -38,6 +50,7 @@ import {
   DASHBOARD_ROUTE,
   LOGIN_ROUTE,
   REGISTER_ROUTE,
+  VALIDATION_CODE_ROUTE,
   FORGOT_ROUTE,
   JOB_INVITES_ROUTE,
   JOB_PREFERENCES_ROUTE,
@@ -45,8 +58,12 @@ import {
   SETTING_ROUTE,
   APP_ROUTE,
   AUTH_ROUTE,
+  POSITION_ONBOARDING_ROUTE,
+  AVAILABILITY_ONBOARDING_ROUTE,
   RESET_ROUTE,
   AVAILABILITY_ROUTE,
+  JOB_PREFERENCES_ONBOARDING_ROUTE,
+  PICTURE_ONBOARDING_ROUTE,
   INVITE_DETAILS_ROUTE_V2,
   POSITION_ROUTE,
   EDIT_LOCATION_ROUTE,
@@ -56,8 +73,11 @@ import {
   JOB_DETAILS_NEW_TWO_ROUTE,
   JOB_PAYMENTS_ROUTE,
   HELP_ROUTE,
+  DOB_ONBOARDING_ROUTE,
+  RESUME_ONBOARDING_ROUTE,
   TERMS_AND_CONDITIONS_ROUTE,
   UPDATE_APP_ROUTE,
+  LOCATION_ONBOARDING_ROUTE,
 } from './src/constants/routes';
 import {
   BLUE_DARK,
@@ -89,6 +109,7 @@ export const AuthStack = createStackNavigator({
     screen: RegisterScreen,
     path: 'register',
   },
+  [VALIDATION_CODE_ROUTE]: ValidationCodeScreen,
   [FORGOT_ROUTE]: ForgotScreen,
   [TERMS_AND_CONDITIONS_ROUTE]: TermsAndConditionsScreen,
 });
@@ -104,17 +125,17 @@ export const Tabs = createBottomTabNavigator(
   {
     tabBarPosition: 'bottom',
     tabBarOptions: {
-      activeBackgroundColor: BLUE_SEMI_LIGHT,
-      inactiveBackgroundColor: BLUE_LIGHT,
-      activeTintColor: BLUE_DARK,
-      inactiveTintColor: GRAY_MAIN,
+      activeBackgroundColor: 'white',
+      inactiveBackgroundColor: 'white',
+      activeTintColor: 'black',
+      inactiveTintColor: '#D3D3D3',
       showLabel: true,
       showIcon: true,
       labelStyle: {
         fontSize: 10,
       },
       style: {
-        backgroundColor: BLUE_LIGHT,
+        backgroundColor: 'white',
         height: 60,
         borderTopColor: 'transparent',
       },
@@ -131,10 +152,19 @@ export const AppStack = createStackNavigator(
     [SETTING_ROUTE]: SettingScreen,
     [RESET_ROUTE]: ChangePassword,
     [UploadDocumentScreen.routeName]: UploadDocumentScreen,
+    [FederalW4tScreen.routeName]: FederalW4tScreen,
+    [BackgroundCheckScreen.routeName]: BackgroundCheckScreen,
     [BankAccounts.routeName]: BankAccounts,
     [AddBankAccount.routeName]: AddBankAccount,
     [EditProfile.routeName]: EditProfile,
     [PublicProfile.routeName]: PublicProfile,
+    [JOB_PREFERENCES_ONBOARDING_ROUTE]: { screen: JobPreferencesOnboarding },
+    [POSITION_ONBOARDING_ROUTE]: { screen: PositionOnboarding },
+    [LOCATION_ONBOARDING_ROUTE]: { screen: LocationOnboarding },
+    [AVAILABILITY_ONBOARDING_ROUTE]: { screen: AvailabilityOnboarding },
+    [PICTURE_ONBOARDING_ROUTE]: { screen: PictureOnboarding },
+    [DOB_ONBOARDING_ROUTE]: { screen: DOBOnboarding },
+    [RESUME_ONBOARDING_ROUTE]: { screen: ResumeOnboarding },
     [EDIT_LOCATION_ROUTE]: EditLocation,
     [AVAILABILITY_ROUTE]: Availability,
     [POSITION_ROUTE]: Position,

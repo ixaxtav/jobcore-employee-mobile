@@ -116,7 +116,6 @@ class InviteDetailsV2 extends Component {
     const { isLoading, invite } = this.state;
     const renderInvite = (t, invite) => {
       const { shift } = invite;
-
       return (
         <>
           <ModalHeader title={t('JOB_INVITES.inviteDetails')} />
@@ -159,9 +158,9 @@ class InviteDetailsV2 extends Component {
                     onPress={this.rejectJob}
                     style={inviteStyles.buttomLeft}
                     full
-                    rounded
+                    // rounded
                     bordered>
-                    <Text style={inviteStyles.textWhite}>
+                    <Text style={inviteStyles.textBlack}>
                       {t('JOB_INVITES.reject')}
                     </Text>
                   </Button>
@@ -172,7 +171,7 @@ class InviteDetailsV2 extends Component {
                     onPress={this.applyJob}
                     style={inviteStyles.buttomRight}
                     full
-                    rounded
+                    // rounded
                     bordered>
                     <Text style={inviteStyles.textWhite}>
                       {t('JOB_INVITES.apply')}

@@ -15,6 +15,18 @@ const getApplication = (applicationId) => {
       Flux.dispatchEvent('JobStoreError', err);
     });
 };
+/**
+ * Get employee information
+ */
+const getEmployeeData = () => {
+  getData(`/employees/me`)
+    .then((jobs) => {
+      Flux.dispatchEvent('GetEmployee', jobs);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('JobStoreError', err);
+    });
+};
 
 /**
  * Get shift job
@@ -339,6 +351,7 @@ export {
   getCompletedJobs,
   getFailedJobs,
   getApplication,
+  getEmployeeData,
   getJob,
   rateEmployer,
   getJobRate,

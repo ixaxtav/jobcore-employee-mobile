@@ -289,6 +289,46 @@ const getProfile = () => {
     });
 };
 
+export const postI9Form = (data) => {
+  postData(`/employees/me/i9-form`, data)
+    .then((data) => {
+      console.log('dispatch i9', data);
+      Flux.dispatchEvent('I9Form', data);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('I9FormError', err);
+    });
+};
+export const putI9Form = (data) => {
+  console.log('PUT DATA', data);
+  putData(`/employees/me/i9-form`, data)
+    .then((data) => {
+      Flux.dispatchEvent('I9Form', data);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('I9FormError', err);
+    });
+};
+
+export const postW4Form = (data) => {
+  postData(`/employees/me/w4-form`, data)
+    .then((data) => {
+      Flux.dispatchEvent('W4Form', data);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('W4FormError', err);
+    });
+};
+export const putW4Form = (data) => {
+  putData(`/employees/me/i9-form`, data)
+    .then((data) => {
+      Flux.dispatchEvent('W4Form', data);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('W4FormError', err);
+    });
+};
+
 export {
   getJobInvites,
   getInvite,

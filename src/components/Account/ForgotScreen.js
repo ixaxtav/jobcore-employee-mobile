@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Image } from 'react-native';
-import { Item, Input, Button, Text, Form, Content } from 'native-base';
+import {
+  Container,
+  Item,
+  Input,
+  Button,
+  Text,
+  Form,
+  Content,
+} from 'native-base';
 import styles from './ForgotStyle';
 import * as accountActions from './actions';
 import accountStore from './AccountStore';
@@ -8,6 +16,7 @@ import { I18n } from 'react-i18next';
 import { i18next } from '../../i18n';
 import { CustomToast, Loading } from '../../shared/components';
 import { FormView } from '../../shared/platform';
+import { BLACK_MAIN } from '../../shared/colorPalette';
 
 class ForgotScreen extends Component {
   static navigationOptions = { header: null };
@@ -51,49 +60,52 @@ class ForgotScreen extends Component {
     return (
       <I18n>
         {(t) => (
-          <Content contentContainerStyle={{ flexGrow: 1 }}>
-            <View style={styles.container}>
-              {this.state.isLoading ? <Loading /> : null}
+          <Container>
+            <Content contentContainerStyle={{ flexGrow: 1 }}>
+              <View style={styles.container}>
+                {this.state.isLoading ? <Loading /> : null}
 
-              <Image
+                {/* <Image
                 style={styles.viewBackground}
                 source={require('../../assets/image/bg.jpg')}
-              />
-              <Image
-                style={styles.viewLogo}
-                source={require('../../assets/image/logo1.png')}
-              />
-              <FormView>
-                <Form>
-                  <Item style={styles.viewInput} rounded inlineLabel>
-                    <Input
-                      keyboardType={'email-address'}
-                      autoCapitalize={'none'}
-                      value={this.state.email}
-                      placeholder={t('FORGOT.email')}
-                      onChangeText={(text) => this.setState({ email: text })}
-                    />
-                  </Item>
-                </Form>
-                <Button
-                  full
-                  onPress={() => this.passwordReset()}
-                  style={styles.viewButtomLogin}>
-                  <Text style={styles.textButtom}>
-                    {t('FORGOT.sendInstructions')}
-                  </Text>
-                </Button>
-                <TouchableOpacity
-                  full
-                  onPress={() => this.props.navigation.goBack()}
-                  style={styles.viewButtomSignUp}>
-                  <Text style={styles.textButtomSignUp}>
-                    {t('REGISTER.goBack')}
-                  </Text>
-                </TouchableOpacity>
-              </FormView>
-            </View>
-          </Content>
+              /> */}
+                <Image
+                  style={styles.viewLogo}
+                  source={require('../../assets/image/logo1.png')}
+                />
+                <FormView>
+                  <Form>
+                    <Item style={styles.viewInput} rounded inlineLabel>
+                      <Input
+                        keyboardType={'email-address'}
+                        autoCapitalize={'none'}
+                        value={this.state.email}
+                        style={{ color: 'black' }}
+                        placeholder={t('FORGOT.email')}
+                        onChangeText={(text) => this.setState({ email: text })}
+                      />
+                    </Item>
+                  </Form>
+                  <Button
+                    full
+                    onPress={() => this.passwordReset()}
+                    style={styles.viewButtomLogin}>
+                    <Text style={styles.textButtom}>
+                      {t('FORGOT.sendInstructions')}
+                    </Text>
+                  </Button>
+                  <Button
+                    full
+                    onPress={() => this.props.navigation.goBack()}
+                    style={styles.viewButtomSignUp}>
+                    <Text style={styles.textButtomSignUp}>
+                      {t('REGISTER.goBack')}
+                    </Text>
+                  </Button>
+                </FormView>
+              </View>
+            </Content>
+          </Container>
         )}
       </I18n>
     );

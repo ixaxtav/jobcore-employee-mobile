@@ -9,14 +9,16 @@ const ClockInButton = ({ canClockIn, diffInMinutes, onClick }) => {
   let time = `${timeToClockIn} ${timeUnit}`;
 
   if (timeToClockIn > 59 && timeUnit === 'Minutes') {
-    timeToClockInTemp = timeToClockIn / 60
+    timeToClockInTemp = timeToClockIn / 60;
     timeToClockIn = parseInt(timeToClockIn / 60);
     timeUnit = 'Hours';
-    time = `${timeToClockIn} ${timeUnit} ${parseInt((timeToClockInTemp - timeToClockIn) * 60)} MINUTES`;
+    time = `${timeToClockIn} ${timeUnit} ${parseInt(
+      (timeToClockInTemp - timeToClockIn) * 60,
+    )} MINUTES`;
   }
 
   if (timeToClockIn > 23 && timeUnit === 'Hours') {
-    timeToClockInTemp = timeToClockIn
+    timeToClockInTemp = timeToClockIn;
     timeToClockIn = parseInt(timeToClockIn / 24);
     timeUnit = 'Days';
     time = `${timeToClockIn} ${timeUnit} ${timeToClockInTemp - 24} HOURS`;
@@ -55,9 +57,7 @@ const ClockInButton = ({ canClockIn, diffInMinutes, onClick }) => {
       full
       rounded
       bordered>
-      <Text style={inviteStyles.textWhite}>
-        CLOCK-IN IN {time}
-      </Text>
+      <Text style={inviteStyles.textWhite}>CLOCK-IN IN {time}</Text>
     </Button>
   );
 };

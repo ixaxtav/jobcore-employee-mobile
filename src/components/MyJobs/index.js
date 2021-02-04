@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Image, RefreshControl } from 'react-native';
+
 import {
   Container,
   Content,
@@ -10,6 +11,7 @@ import {
   Right,
   Segment,
   ListItem,
+  Icon,
 } from 'native-base';
 import styles from './style';
 import { I18n } from 'react-i18next';
@@ -29,14 +31,14 @@ import WorkModeScreen from './WorkModeScreen';
 
 const jobFilters = [
   {
-    name: 'pending', // must match the i18n translate
-    action: 'getPendingJobs', // Must match the action's name
-    style: 'pointPending', // must match the style's name
-  },
-  {
     name: 'upcoming',
     action: 'getUpcomingJobs',
     style: 'pointUpcoming',
+  },
+  {
+    name: 'pending', // must match the i18n translate
+    action: 'getPendingJobs', // Must match the action's name
+    style: 'pointPending', // must match the style's name
   },
   {
     name: 'completed',
@@ -53,10 +55,11 @@ const jobFilters = [
 class MyJobs extends Component {
   static navigationOptions = {
     tabBarLabel: i18next.t('MY_JOBS.myJobs'),
-    tabBarIcon: () => (
-      <Image
-        style={{ resizeMode: 'contain', width: 42, height: 42 }}
-        source={require('../../assets/image/myJobs.png')}
+    tabBarIcon: ({ tintColor }) => (
+      <Icon
+        type="MaterialCommunityIcons"
+        style={{ color: tintColor }}
+        name="briefcase"
       />
     ),
   };
@@ -71,7 +74,7 @@ class MyJobs extends Component {
       jobs: [],
       jobFilterSelected: props.navigation.getParam(
         'tabAction',
-        'getPendingJobs',
+        'getUpcomingJobs',
       ),
     };
   }
@@ -152,7 +155,7 @@ class MyJobs extends Component {
 
   render() {
     const { jobs } = this.state;
-    console.log('jobsss ', jobs);
+    console.log('jobsss ', this.state);
     return (
       <I18n>
         {(t) => (
@@ -176,6 +179,16 @@ class MyJobs extends Component {
                     index === 0 ? styles.firstButtonBorderLeft : {},
                   ]}>
                   <View style={styles[filter.style]} />
+                  <View
+                    style={[
+                      styles[
+                        this.state.jobFilterSelected === filter.action
+                          ? styles[filter.style]
+                          : 'inactiveFilter'
+                      ],
+                      index === 0 ? styles.firstButtonBorderLeft : {},
+                    ]}
+                  />
                 </Button>
               ))}
             </Segment>

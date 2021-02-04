@@ -77,6 +77,7 @@ class JobPayments extends Component {
   }
 
   getPaymentsHandler = (payments) => {
+    console.log('payments handler', payments);
     let emptyPayments = false;
     if (Array.isArray(payments) && !payments.length) emptyPayments = true;
 
@@ -109,6 +110,7 @@ class JobPayments extends Component {
   };
 
   getPayments = () => {
+    console.log('get payments', this.state.filterSelected);
     jobActions[this.state.filterSelected]();
   };
 
@@ -156,8 +158,7 @@ class JobPayments extends Component {
                           resizeMode={'cover'}
                           circle={true}
                           source={
-                            payment.employer &&
-                            payment.employer.picture
+                            payment.employer && payment.employer.picture
                               ? { uri: payment.employer.picture }
                               : CHICKEN
                           }

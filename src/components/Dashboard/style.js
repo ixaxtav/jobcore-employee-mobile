@@ -1,11 +1,11 @@
 import { StyleSheet, Platform, Dimensions } from 'react-native';
 import {
-  BLUE_MAIN,
-  BLUE_DARK,
+  // '#808080',
+  // 'black',
   WHITE_MAIN,
   VIOLET_MAIN,
   // BLUE_LIGHT,
-  BLUE_SEMI_LIGHT,
+  // '#D3D3D3',
   RED_MAIN,
   BLACK_MAIN,
 } from '../../shared/colorPalette';
@@ -17,7 +17,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   emptyTableText: {
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 19,
     textAlign: 'center',
     top: 150,
@@ -33,11 +33,13 @@ export default StyleSheet.create({
         flex: 1.5,
       },
       ios: {
-        flex: 1.1,
+        flex: 1.5,
       },
     }),
     flexDirection: 'row',
     backgroundColor: 'white',
+    borderBottomWidth: 0.5,
+    borderColor: '#c9c9c9',
   },
   flexTwo: {
     ...Platform.select({
@@ -65,14 +67,14 @@ export default StyleSheet.create({
     paddingVertical: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: BLUE_MAIN,
+    borderColor: '#808080',
     borderWidth: 1,
   },
   tabTwo: {
     width: '50%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: BLUE_MAIN,
+    borderColor: '#808080',
     borderWidth: 1,
     paddingVertical: 8,
   },
@@ -93,12 +95,12 @@ export default StyleSheet.create({
   titleDate: {
     textAlign: 'center',
     fontSize: 20,
-    color: BLUE_DARK,
+    color: 'black',
     marginTop: 25,
     marginBottom: 15,
   },
   flexiStyle: {
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 13,
     fontWeight: '700',
     marginRight: 3,
@@ -108,7 +110,7 @@ export default StyleSheet.create({
     height: 6,
     width: 6,
     borderRadius: 20,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
   },
   containerTextInvitationJobs: {
     paddingTop: 5,
@@ -136,13 +138,13 @@ export default StyleSheet.create({
     }),
   },
   yourRating: {
-    color: BLUE_SEMI_LIGHT,
+    color: 'black',
     fontSize: Dimensions.get('window').width <= 340 ? 11 : 13,
     marginRight: 4,
     fontWeight: '900',
   },
   amountText: {
-    color: BLUE_SEMI_LIGHT,
+    color: 'black',
     fontWeight: '900',
     fontSize: Dimensions.get('window').width <= 340 ? 11 : 13,
     marginRight: 5,
@@ -159,7 +161,8 @@ export default StyleSheet.create({
     marginBottom: 5,
   },
   textEmployer: {
-    color: VIOLET_MAIN,
+    color: 'black',
+    fontWeight: '700',
     textAlign: 'left',
   },
   textGray: {
@@ -167,11 +170,12 @@ export default StyleSheet.create({
     textAlign: 'left',
   },
   textRed: {
+    fontWeight: '700',
     color: RED_MAIN,
     textAlign: 'left',
   },
   textShiftTitle: {
-    color: BLUE_MAIN,
+    color: 'black',
     textAlign: 'left',
   },
   textBlack: {
@@ -193,13 +197,13 @@ export default StyleSheet.create({
   },
   textHello: {
     textAlign: 'center',
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 22,
     fontWeight: '600',
   },
   textWelcome: {
     textAlign: 'center',
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 18,
     fontWeight: '500',
     // marginBottom: 40,
@@ -237,22 +241,22 @@ export default StyleSheet.create({
   },
   titleItem: {
     textAlign: 'center',
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 12,
     marginBottom: 15,
   },
   titleInvite: {
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 14,
     marginBottom: 10,
   },
   itemInvite: {
     padding: 14,
     fontSize: 14,
-    color: BLUE_DARK,
+    color: 'black',
   },
   itemData: {
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 18,
     textAlign: 'center',
     marginTop: 10,
@@ -263,33 +267,33 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   buttonLeftActive: {
-    backgroundColor: BLUE_MAIN,
+    backgroundColor: '#808080',
     borderColor: 'transparent',
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
   },
   buttonLeftInactive: {
     backgroundColor: 'transparent',
-    borderColor: BLUE_MAIN,
+    borderColor: '#808080',
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
   },
   buttonRightActive: {
-    backgroundColor: BLUE_MAIN,
+    backgroundColor: '#808080',
     borderColor: 'transparent',
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
   },
   buttonRightInactive: {
     backgroundColor: 'transparent',
-    borderColor: BLUE_MAIN,
+    borderColor: '#808080',
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
   },
   pointActive: {
     width: 8,
     height: 8,
-    borderRadius: 50,
+    borderRadius: 0,
     backgroundColor: 'red',
   },
   profileInfoContainer: {

@@ -33,11 +33,12 @@ class JobInvites extends Component {
     const { params } = navigation.state;
     return {
       tabBarLabel: i18next.t('JOB_INVITES.jobOffers'),
-      tabBarIcon: () => (
+      tabBarIcon: ({ tintColor }) => (
         <>
-          <Image
-            style={{ resizeMode: 'contain', width: 42, height: 42 }}
-            source={require('../../assets/image/offers.png')}
+          <Icon
+            type="MaterialCommunityIcons"
+            style={{ color: tintColor }}
+            name="email"
           />
           {params && params.invitationCount ? (
             <Badge style={inviteStyles.badge}>

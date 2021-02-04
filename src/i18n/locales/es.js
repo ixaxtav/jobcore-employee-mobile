@@ -29,6 +29,7 @@ export default {
     email: 'Correo',
     firstName: 'Nombre',
     lastName: 'Apellido',
+    phoneNumber: 'Número de teléfono',
     emptyFirstName: 'Ingresa tu nombre',
     emptyLastName: 'Ingresa tu apellido',
     emptyCities: 'Ingresa una ciudad',
@@ -43,6 +44,15 @@ export default {
     last_4dig_ssn: 'Ssn ultimos 4 digitos',
     last_4dig_ssn_placeholder: '####',
     userBirthDate: 'Fecha de nacimiento',
+  },
+  VALIDATE_CODE: {
+    title:
+      'Para continuar, porfavor ingrese el codigo de verificacion enviado a su móvil ',
+    resend: 'Re-enviar Codigo',
+    continue: 'Continuar',
+    goBack: 'Ir atrás',
+    welcome: 'Bienvenido a JobCore!',
+    sent: 'Enviado!',
   },
   EDIT_PROFILE: {
     editProfile: 'Editar perfil',
@@ -230,7 +240,7 @@ export default {
     invitations: 'Invitaciones',
     upcomingJobs: 'Próximos trabajos',
     myRating: 'Mi clasificación',
-    stopReceivingInvites: 'Deja de recibir invitaciones automáticas',
+    stopReceivingInvites: 'Recibir invitaciones automáticas',
     y: 'S',
     n: 'N',
   },

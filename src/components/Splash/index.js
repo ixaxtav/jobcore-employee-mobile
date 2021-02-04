@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, ImageBackground } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { APP_ROUTE, AUTH_ROUTE } from '../../constants/routes';
+import {
+  APP_ROUTE,
+  AUTH_ROUTE,
+  POSITION_ONBOARDING_ROUTE,
+} from '../../constants/routes';
 import store from '../Account/AccountStore';
 import DeviceInfo from 'react-native-device-info';
 import { LOG } from '../../shared';
@@ -42,7 +46,12 @@ class Splash extends Component {
     } catch (e) {
       LOG(this, e);
     }
-    if (token && status && status !== 'PENDING_EMAIL_VALIDATION') {
+
+    console.log('splash status', status);
+    if (token && status && status === 'PAUSED') {
+      return this.props.navigation.navigate(POSITION_ONBOARDING_ROUTE);
+    }
+    if (token && status && status === 'ACTIVE') {
       return this.props.navigation.navigate(APP_ROUTE);
     }
 

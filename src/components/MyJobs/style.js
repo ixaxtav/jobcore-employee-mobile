@@ -1,8 +1,6 @@
 import { StyleSheet } from 'react-native';
 import {
-  BLUE_MAIN,
   BLACK_MAIN,
-  BLUE_DARK,
   WHITE_MAIN,
   BG_GRAY_LIGHT,
   VIOLET_MAIN,
@@ -17,7 +15,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   headerCustom: {
-    backgroundColor: BLUE_MAIN,
+    backgroundColor: 'black',
   },
   titleHeader: {
     color: '#fff',
@@ -51,34 +49,40 @@ export default StyleSheet.create({
     color: BLACK_MAIN,
     marginTop: 5,
   },
+  inactiveFilter: {
+    width: 5,
+    height: 5,
+    borderRadius: 0,
+    backgroundColor: 'black',
+  },
   pointPending: {
     width: 5,
     height: 5,
-    borderRadius: 50,
-    backgroundColor: BLACK_MAIN,
+    borderRadius: 0,
+    backgroundColor: 'white',
   },
   pointCompleted: {
     width: 5,
     height: 5,
-    borderRadius: 50,
-    backgroundColor: BLACK_MAIN,
+    borderRadius: 0,
+    backgroundColor: 'white',
   },
   pointUpcoming: {
     width: 5,
     height: 5,
-    borderRadius: 50,
-    backgroundColor: BLACK_MAIN,
+    borderRadius: 0,
+    backgroundColor: 'white',
   },
   pointFailed: {
     width: 5,
     height: 5,
-    borderRadius: 50,
+    borderRadius: 0,
     backgroundColor: BLACK_MAIN,
   },
   titleDate: {
     textAlign: 'center',
     fontSize: 20,
-    color: BLUE_DARK,
+    color: 'black',
     marginTop: 25,
     marginBottom: 15,
   },
@@ -93,7 +97,7 @@ export default StyleSheet.create({
     paddingRight: 0,
   },
   itemName: {
-    color: BLUE_MAIN,
+    color: 'black',
     fontSize: 14,
   },
   itemTime: {
@@ -105,24 +109,24 @@ export default StyleSheet.create({
   buttonActive: {
     paddingLeft: 35,
     paddingRight: 35,
-    backgroundColor: BLUE_MAIN,
-    borderColor: BLUE_MAIN,
+    backgroundColor: 'black',
+    borderColor: 'black',
   },
   buttonInactive: {
     paddingLeft: 35,
     paddingRight: 35,
-    borderColor: BLUE_MAIN,
+    borderColor: 'black',
   },
   buttonPaymentsActive: {
     paddingLeft: 65,
     paddingRight: 65,
-    backgroundColor: BLUE_MAIN,
-    borderColor: BLUE_MAIN,
+    backgroundColor: 'black',
+    borderColor: 'black',
   },
   buttonPaymentsInactive: {
     paddingLeft: 65,
     paddingRight: 65,
-    borderColor: BLUE_MAIN,
+    borderColor: 'black',
     borderLeftWidth: 1,
   },
   rateContainer: {
@@ -139,7 +143,7 @@ export default StyleSheet.create({
     textAlign: 'left',
   },
   textThree: {
-    color: BLUE_MAIN,
+    color: 'black',
 
     textAlign: 'left',
   },
@@ -172,12 +176,12 @@ export default StyleSheet.create({
   },
   textTitle: {
     textAlign: 'center',
-    color: BLUE_DARK,
+    color: 'black',
     fontWeight: '800',
   },
   textSubTitle: {
     textAlign: 'center',
-    color: BLUE_DARK,
+    color: 'black',
     fontWeight: '100',
   },
   textCenter: {
@@ -199,7 +203,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: BLUE_MAIN,
+    backgroundColor: 'black',
     margin: 25,
     paddingLeft: 20,
     paddingRight: 20,

@@ -17,7 +17,7 @@ const StarComponent = (props) => {
           type="FontAwesome"
           name="star"
           style={{
-            color: BLUE_DARK,
+            color: 'black',
             fontSize: 15,
           }}
         />
@@ -27,7 +27,7 @@ const StarComponent = (props) => {
           type="FontAwesome"
           name="star"
           style={{
-            color: BLUE_SEMI_LIGHT,
+            color: '#D3D3D3',
             fontSize: 15,
           }}
         />

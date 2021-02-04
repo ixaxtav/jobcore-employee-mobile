@@ -1,12 +1,9 @@
 import { StyleSheet, Platform } from 'react-native';
 import {
-  BLUE_MAIN,
   WHITE_MAIN,
-  VIOLET_MAIN,
   GRAY_MAIN,
   RED_MAIN,
   BLACK_MAIN,
-  BLUE_DARK,
   BG_GRAY_LIGHT,
 } from '../../shared/colorPalette';
 
@@ -37,11 +34,11 @@ const inviteStyles = StyleSheet.create({
   },
   textAlreadyRated: {
     marginTop: 10,
-    color: BLUE_MAIN,
+    color: 'black',
     textAlign: 'center',
   },
   textLocation: {
-    color: BLUE_DARK,
+    color: 'black',
     textAlign: 'center',
   },
   container: {
@@ -50,17 +47,17 @@ const inviteStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   headerCustom: {
-    backgroundColor: BLUE_MAIN,
+    backgroundColor: 'black',
   },
   titleHeader: {
     color: '#fff',
     fontWeight: '500',
   },
   buttomApply: {
-    backgroundColor: BLUE_MAIN,
+    backgroundColor: 'black',
   },
   buttomReject: {
-    backgroundColor: VIOLET_MAIN,
+    backgroundColor: 'black',
   },
   viewListItem: {
     paddingLeft: 50,
@@ -73,7 +70,7 @@ const inviteStyles = StyleSheet.create({
     marginLeft: 15,
   },
   textOne: {
-    color: VIOLET_MAIN,
+    color: 'black',
     fontSize: 12,
     textAlign: 'left',
   },
@@ -83,7 +80,7 @@ const inviteStyles = StyleSheet.create({
     textAlign: 'left',
   },
   textThree: {
-    color: BLUE_MAIN,
+    color: 'black',
     fontSize: 12,
     textAlign: 'left',
   },
@@ -119,18 +116,19 @@ const inviteStyles = StyleSheet.create({
     marginTop: 25,
   },
   buttomLeft: {
-    borderColor: 'transparent',
-    backgroundColor: VIOLET_MAIN,
+    borderColor: 'black',
+    // backgroundColor: 'black',
+    borderWidth: 1,
     height: 38,
   },
   buttomBlueDark: {
     borderColor: 'transparent',
-    backgroundColor: BLUE_DARK,
+    backgroundColor: 'black',
     height: 38,
   },
   buttomBottom: {
     borderColor: 'transparent',
-    backgroundColor: BLUE_DARK,
+    backgroundColor: 'black',
     height: 38,
     // width: '100%',
     textAlign: 'center',
@@ -140,7 +138,7 @@ const inviteStyles = StyleSheet.create({
   },
   clockInButton: {
     borderColor: 'transparent',
-    backgroundColor: BLUE_DARK,
+    backgroundColor: 'black',
     height: 38,
     // width: '70%',
     textAlign: 'center',
@@ -148,7 +146,7 @@ const inviteStyles = StyleSheet.create({
   },
   clockOutButton: {
     borderColor: 'transparent',
-    backgroundColor: VIOLET_MAIN,
+    backgroundColor: 'black',
     height: 38,
     // width: '70%',
     textAlign: 'center',
@@ -167,24 +165,28 @@ const inviteStyles = StyleSheet.create({
   },
   buttomRight: {
     borderColor: 'transparent',
-    backgroundColor: BLUE_MAIN,
+    backgroundColor: 'black',
     height: 38,
   },
   textViolet: {
-    color: VIOLET_MAIN,
+    color: 'black',
   },
   textBlue: {
-    color: BLUE_MAIN,
+    color: 'black',
   },
   textWhite: {
     color: WHITE_MAIN,
     textAlign: 'center',
   },
+  textBlack: {
+    color: 'black',
+    textAlign: 'center',
+  },
   textDark: {
-    color: BLUE_DARK,
+    color: 'black',
   },
   openDirectionButton: {
-    borderColor: BLUE_DARK,
+    borderColor: 'black',
     marginTop: 10,
     alignSelf: 'center',
   },
@@ -222,12 +224,12 @@ const inviteStyles = StyleSheet.create({
   },
   textTitle: {
     textAlign: 'center',
-    color: BLUE_DARK,
+    color: 'black',
     fontWeight: '800',
   },
   textSubTitle: {
     textAlign: 'center',
-    color: BLUE_DARK,
+    color: 'black',
     fontWeight: '100',
     ...Platform.select({
       android: {
@@ -260,7 +262,7 @@ const inviteStyles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: BLUE_MAIN,
+    backgroundColor: 'black',
     margin: 25,
     paddingLeft: 20,
     paddingRight: 20,

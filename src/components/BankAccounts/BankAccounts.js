@@ -68,10 +68,10 @@ class BankAccounts extends FluxView {
     if (!user.birth_date) {
       return CustomToast(i18next.t('BANK_ACCOUNTS.needBirthDate'), 'danger');
     }
-    if (!user.last_4dig_ssn) {
-      return CustomToast(i18next.t('BANK_ACCOUNTS.needSsn4digits'), 'danger');
-    }
-    if (user.birth_date && user.last_4dig_ssn)
+    // if (!user.last_4dig_ssn) {
+    //   return CustomToast(i18next.t('BANK_ACCOUNTS.needSsn4digits'), 'danger');
+    // }
+    if (user.birth_date)
       this.props.navigation.navigate(AddBankAccount.routeName);
   };
 

@@ -1,5 +1,4 @@
 import { StyleSheet, Platform, Dimensions } from 'react-native';
-import { BLUE_MAIN, BLUE_DARK } from '../../shared/colorPalette';
 
 const { width } = Dimensions.get('window');
 
@@ -13,7 +12,7 @@ export default StyleSheet.create({
     paddingLeft: 0,
   },
   pickerIcon: {
-    color: BLUE_DARK,
+    color: 'black',
     position: 'absolute',
     right: 7,
   },
@@ -23,9 +22,15 @@ export default StyleSheet.create({
   itemTextBio: {
     borderBottomColor: 'transparent',
     marginBottom: 10,
+    borderRadius: 0,
+  },
+  itemResume: {
+    borderBottomColor: 'transparent',
+    marginBottom: 10,
+    borderRadius: 0,
   },
   labelForm: {
-    color: BLUE_DARK,
+    color: 'black',
   },
   profileImg: {
     alignSelf: 'center',
@@ -33,7 +38,8 @@ export default StyleSheet.create({
     marginTop: 30,
   },
   textBio: {
-    color: BLUE_DARK,
+    color: 'black',
+    borderRadius: 0,
     paddingLeft: 20,
     paddingRight: 20,
     textAlign: 'center',
@@ -44,7 +50,7 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   textButtomChangePassword: {
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 14,
     fontWeight: '500',
     marginBottom: 20,
@@ -52,7 +58,7 @@ export default StyleSheet.create({
     textAlign: 'right',
   },
   activateToachIdText: {
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 14,
     fontWeight: '500',
     marginRight: 10,
@@ -60,7 +66,7 @@ export default StyleSheet.create({
     marginTop: 5,
   },
   textButtomSave: {
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 14,
     fontWeight: '500',
     marginRight: 10,
@@ -68,7 +74,7 @@ export default StyleSheet.create({
     textAlign: 'right',
   },
   textButtomSignUp: {
-    color: BLUE_DARK,
+    color: 'black',
     fontSize: 14,
     fontWeight: '500',
     textAlign: 'center',
@@ -88,9 +94,16 @@ export default StyleSheet.create({
     backgroundColor: 'transparent',
   },
   viewButtomLogin: {
-    backgroundColor: BLUE_DARK,
-    borderRadius: 50,
+    backgroundColor: 'black',
+    borderRadius: 0,
     height: 45,
+    marginBottom: 20,
+  },
+  viewButtonResume: {
+    backgroundColor: 'black',
+    borderRadius: 0,
+    height: 45,
+    width: '100%',
     marginBottom: 20,
   },
   viewButtomSignUp: {
@@ -107,12 +120,27 @@ export default StyleSheet.create({
   },
   viewInput: {
     backgroundColor: 'transparent',
-    borderColor: BLUE_MAIN,
-    borderRadius: 50,
+    borderColor: 'black',
+    borderRadius: 0,
     borderWidth: 1,
-    color: BLUE_DARK,
+    color: 'black',
     height: 40,
     marginBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 10,
+    paddingTop: 0,
+    width: '100%',
+    position: 'relative',
+  },
+  viewInputBackground: {
+    backgroundColor: 'transparent',
+    borderColor: 'black',
+    borderRadius: 0,
+    borderWidth: 1,
+    color: 'black',
+    height: 40,
+    marginBottom: 60,
+    marginTop: 15,
     paddingLeft: 20,
     paddingRight: 10,
     paddingTop: 0,
@@ -132,8 +160,9 @@ export default StyleSheet.create({
   },
   viewTextArea: {
     backgroundColor: 'transparent',
-    borderColor: BLUE_MAIN,
-    color: BLUE_DARK,
+    borderColor: 'black',
+    color: 'black',
+    borderRadius: 0,
     paddingLeft: 10,
     paddingRight: 10,
     ...Platform.select({
